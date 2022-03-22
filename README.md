@@ -33,6 +33,6 @@ To get started with the application make a clone of the repository
 
 To use the application you will need either an Android or IOS emulator or a physical device with Expo Go installed.
 
-Client secret keys are hidden with @env for now and you will need our .env file. Business enquiries for the file should be sent to miika.juhala@gmail.com 
+Client secret keys are hidden with @env for now and you will need our .env file. Business enquiries for the file should be sent to miika.m.juhala@gmail.com 
 
 For Expo Go docs go to https://expo.dev/client
