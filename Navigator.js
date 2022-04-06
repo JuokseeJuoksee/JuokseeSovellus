@@ -52,7 +52,7 @@ console.log(state)
 
   while (!state.seenWelcome) {
     return <WelcomePage />
-  }
+  } 
 
 
   if (state.user.user && state.strava === true) {
