@@ -4,11 +4,16 @@ import { StyleSheet, View, Text, Button, FlatList } from 'react-native';
 import axios from 'axios';
 import Training from './Training';
 
-export default function Trainings({trainings, navigation}) {
+export default function Trainings({trainings, navigation, users}) {
 
   const renderItem = ({item}) => {
-    console.log(item)
-    return <Training item={item} navigation={navigation}/>
+    let user
+    users.forEach(element => {
+      if (element.athlete_id == item.athlete.id) {
+        user = element
+      }
+    })
+    return <Training item={item} navigation={navigation} user={user}/>
     }
 
     return (

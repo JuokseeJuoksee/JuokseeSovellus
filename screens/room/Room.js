@@ -1,4 +1,5 @@
 import { View, Text, ImageBackground } from "react-native"
+import Chat from "../../components/others/Chat"
 import Image from '../../assets/background.jpg'
 import { Button } from "react-native"
 import { getAuth} from "firebase/auth"
@@ -7,9 +8,7 @@ import { push, ref, set,update, onValue } from "firebase/database"
 import { db } from '../../database/firebase'
 import React from "react"
 import axios from "axios"
-import Trainings from "./Trainings"
-import Chat from "../../components/others/Chat"
-
+import Trainings from './Trainings'
 
 const auth = getAuth(app)
 
@@ -21,12 +20,14 @@ export default function Room({ navigation, route }) {
 
     const { room } = route.params
 
-    const [athletes, setAthletes] = React.useState([])
     const [trainings, setTrainings] = React.useState([])
     const [theBoolean, setTheBoolean] = React.useState(false)
+    const [users, setUsers] = React.useState([])
 
     React.useEffect(() => console.log(`trainings: ${trainings.length}`),[trainings])
-    React.useEffect(() => console.log(`athletes: ${athletes.length}`),[athletes])
+    React.useEffect(() => console.log(`users: ${users.length}`), [users])
+
+    React.useEffect(() => getTrainings(users[users.length -1]), [users])
 
     const userToRoom = () => {
         update(
@@ -36,36 +37,21 @@ export default function Room({ navigation, route }) {
         )
     }
 
-    const getGoogleUsers = () => {
+    const getUsers = () => {
         
-        let users = []
-
-        room[1].users && room[1].users.forEach(element => {
+        room[1].users.forEach(element => {
             const userRef = ref(db, 'users/' + element)
             onValue(userRef, (snapshot) => {
                 const data = snapshot.val()
-                users.push(data)
+                setUsers(arr => [...arr, data])
          })
         })
 
-        console.log(users)
-        getAllAthletes(users)
-        getAllTrainings(users)
     }
 
-    const getAllAthletes = (users) => {
-        console.log('getting athletes')
-        users.forEach(user => getAthletes(user))
-       
-    }
-
-    const getAllTrainings = (users) => {
-        console.log('getting all trainings')
-        users.forEach(user => getTrainings(user))
-       
-    }
-
-    const getTrainings = (user) => {
+    const getTrainings = async (user) => {
+        
+        console.log('getting users trainings')
 
         axios.get('https://www.strava.com/api/v3/athlete/activities', {
           headers : {
@@ -73,41 +59,49 @@ export default function Room({ navigation, route }) {
           }
         })
         .then(res => {
-            res.data.forEach(element => {
-
-                setTrainings(arr => [...arr, element])
-            
-            })
-        })
-        .catch(() => getAccessToken(user))
-    }
-
-    const getAthletes = (user) => {
-        axios.get('https://www.strava.com/api/v3/athlete', {
-          headers : {
-            'Authorization':`Bearer ${user.access_token}`
-          }
-        })
-        .then(res => {
-            
-            res.data.forEach(element => {
-
-                setAthletes(arr => [...arr, element])
-            
-            })
           
+                res.data.forEach(element => {
+                    setTrainings(arr => [...arr, element])
+                })
         })
-        .catch(() => getAccessToken(user))
+        .catch(err => { 
+            console.error(err)
+            getAccessToken(user)
+        })
     }
+
 
     //ACCESS TOKENI VANHENTUU JA UUDEN HANKKIMISTA EI VIELÄ TEHTY
     //TODO: TEE TÄHÄN FUNKTIOON KUTSU JOKA HAKEE REFRESH TOKENILLA UUDET
     //TOKENIT
-    const getAccessToken = () => {
+    const getAccessToken = (user) => {
         console.log('getting new tokens')
+
+        axios.post(`https://www.strava.com/api/v3/oauth/token?client_id=76862&client_secret=67401766aa8757e4f2c742595091a8d3014137c6&grant_type=refresh_token&refresh_token=${user.refresh_token}`)
+        .then(res => {
+            putTokensToUser(res.data, user)})
+        .catch(err => console.error(err))
     }
 
-    React.useState(() => getGoogleUsers(),[])
+    const putTokensToUser = (tokens, user) => {
+        console.log('tokens to user')
+        console.log(tokens)
+        set(
+            ref(db, 'users/' + user.uid), {
+                userId: auth.currentUser.uid,
+                access_token: tokens.access_token,
+                refresh_token: tokens.refresh_token,
+                athlete_id: user.athlete_id,
+                athlete_name: user.athlete_name,
+                athlete_picture: user.athlete_picture
+            }
+        )
+        .catch(err => Alert.alert("Jokin meni pieleen"))
+
+    }
+
+   React.useEffect(() => getUsers(),[])
+
 
     return (
 
@@ -137,7 +131,7 @@ export default function Room({ navigation, route }) {
 
             {
             theBoolean ? 
-                <Trainings trainings={trainings} navigation={navigation} users={athletes}/>
+                <Trainings trainings={trainings} navigation={navigation} users={users}/>
                 :
                 <View>
                 <View style={{ flex: 1 }}>

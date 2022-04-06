@@ -3,9 +3,9 @@ import * as WebBrowser from 'expo-web-browser'
 import { makeRedirectUri, useAuthRequest} from 'expo-auth-session'
 import { Button, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import axios from 'axios'
-import { app } from '../../database/firebase'
+import { app, db } from '../../database/firebase'
 import { getAuth} from "firebase/auth"
-import { push, ref, set, db} from "firebase/database"
+import { push, ref, set} from "firebase/database"
 import * as AuthSession from 'expo-auth-session';
 import userContext from '../../context/user/userContext'
 import LogoutButton from './LogoutButton'
@@ -37,7 +37,7 @@ export default function StravaButton() {
         {
           clientId: '76862',
           scopes: ['activity:read_all'],
-          redirectUri: redirecturlIOS
+          redirectUri: redirecturlANDROID
 
         },
         discovery
@@ -67,7 +67,9 @@ export default function StravaButton() {
                 userId: auth.currentUser.uid,
                 access_token: tokens.access_token,
                 refresh_token: tokens.refresh_token,
-                athlete_id: tokens.athlete.id
+                athlete_id: tokens.athlete.id,
+                athlete_name: tokens.athlete.username,
+                athlete_picture: tokens.athlete.profile
             }
         )
         .catch(err => Alert.alert("Jokin meni pieleen"+err))

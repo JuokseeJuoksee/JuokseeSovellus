@@ -1,6 +1,8 @@
-import { StyleSheet, View, Text, Button, FlatList } from 'react-native';
+import { StyleSheet, View, Text, Button, FlatList, Image } from 'react-native';
 import React from 'react';
 import { FontAwesome } from '@expo/vector-icons'
+import {sessionStorage} from '../../storage/Storage'
+import Polyline from '@mapbox/polyline';
 
 export default function Training(props) {
     //MUISTA LISÄTÄ KARTTA TÄHÄNKIN VERSIOON! 
@@ -12,6 +14,11 @@ export default function Training(props) {
         openBoolean ? setOpenBoolean(false) : setOpenBoolean(true)
     }
 
+    const navigateAndStorePolyline = () => {
+        sessionStorage.setItem('polyline', props.item.map.summary_polyline)
+        props.navigation.navigate('Map')
+        
+    }
 
     const date = new Date(props.item.start_date_local)
 
@@ -38,20 +45,27 @@ export default function Training(props) {
         },
         text:{
             marginTop:10,
-            width:'80%'
+            width:'75%'
         },
         info: {
             padding:10,
             backgroundColor:'#778899',
             borderRadius: 8,
         },
-        data:{width:'50%'}
+        data:{width:'50%'},
+        logo:{
+            width:'13%',
+            padding: 10,
+            marginRight:10,
+            borderRadius:50
+        }
     })
 
     return(
         <View style={styles.item}>
             <View style={{flexDirection:'row'}}>
                 <Text style={styles.text}>{props.item.name}</Text>
+                <Image source={{uri: props.user.athlete_picture}}  style={styles.logo} ></Image>
                 <FontAwesome.Button
                 color='black'
                 name="angle-down"
@@ -80,7 +94,16 @@ export default function Training(props) {
                     <Text style={styles.data}>Type of cardio: </Text>
                     <Text style={styles.data}>{props.item.type}</Text>
                 </View>
-                
+                <View style={styles.row}>
+                    <Text style={styles.data}>athlete username: </Text>
+                    <Text style={styles.data}>{props.user.athlete_name}</Text>
+                </View>
+                <FontAwesome.Button
+                color='black'
+                name="map"
+                backgroundColor= '#778899'
+                onPress={navigateAndStorePolyline}
+                />
             
             </View>
             }

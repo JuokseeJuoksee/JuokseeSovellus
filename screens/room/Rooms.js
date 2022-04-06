@@ -1,9 +1,9 @@
-import { onValue, ref, set } from "firebase/database";
-import { useEffect, useState } from "react";
-import { View, ImageBackground, FlatList } from "react-native";
+import { onValue, ref, set } from "firebase/database"
+import { useEffect, useState } from "react"
+import { View, ImageBackground, FlatList } from "react-native"
 import Image from '../../assets/background.jpg'
 import { db } from '../../database/firebase'
-import RoomFlat from "./RoomFlat";
+import RoomFlat from "./RoomFlat"
 
 
 export default function Rooms({navigation}) {   
