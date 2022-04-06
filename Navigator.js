@@ -48,7 +48,7 @@ export default function Navigator() {
   });
 
  
-console.log(state)
+// console.log(state)
 
   while (!state.seenWelcome) {
     return <WelcomePage />
