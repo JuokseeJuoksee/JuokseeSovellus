@@ -32,24 +32,6 @@ export default function RoomFlat({ room, navigation }) {
                 />
                 </TouchableOpacity>
             </SafeAreaView>
-        //     <Pressable
-        //     style={{
-        //         backgroundColor: 'white',
-        //         opacity: 0.7,
-        //         height: 150,
-        //         width: '100%',
-        //         margin: 10,
-        //         borderTopLeftRadius: 20,
-        //         borderBottomRightRadius: 20
-        //     }}
-        //     onPress={() => navigation.navigate('Room', {room: room})}
-        // >
-            
-        //         <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>{room[1].roomname}</Text>
-        //         <Text style={{ margin: 20 }}>Luotu {room[1].created}</Text>
-        //         <Text style={{ margin: 20 }}>Tekijä {room[1].host}</Text>
-            
-        // </Pressable>
     )
 }
 
