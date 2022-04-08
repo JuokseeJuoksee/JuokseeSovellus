@@ -143,7 +143,7 @@ export default function Room({ navigation, route }) {
                     onPress={userToRoom}
                     ></Button>    
                 </View>
-                <View style={{ flex: 1, marginBottom: 100 }}>
+                <View style={{ flex: 1, marginBottom: 200 }}>
                     <Chat room={room} />  
                 </View>
                 

@@ -37,7 +37,7 @@ export default function StravaButton() {
         {
           clientId: '76862',
           scopes: ['activity:read_all'],
-          redirectUri: redirecturlIOS
+          redirectUri: redirecturlANDROID
 
         },
         discovery
