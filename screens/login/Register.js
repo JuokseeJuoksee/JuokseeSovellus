@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View, ImageBackground, Text, TextInput } from 'react-native';
 import RegisterButton from '../../components/buttons/RegisterButton';
 import Image from '../../assets/runner.png'
+import tyylit from "../../tyyli/tyyli";
 
 
 export default function Register({navigation}) {
@@ -15,64 +16,32 @@ export default function Register({navigation}) {
             flex:1,
         }}>
             <ImageBackground
-                style={{
-                    flex:1,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}
+                style={styles.image}
                 resizeMode="cover"
                 source={Image}
             >
-                <View style={{
-                    height: '80%',
-                    width: '90%',
-                    backgroundColor: 'white',
-                    opacity: 0.7,
-                    borderRadius: 20,
-                    alignItems: 'center'               
-                }}>
-                    <Text style={{ fontSize:20, marginBottom: 20 }}>Tervetuloa rekisteröitymään!</Text>
+                <View style={styles.box}>
+                    <Text style={styles.button}>Tervetuloa rekisteröitymään!</Text>
                     <TextInput 
                         placeholder="  Käyttäjänimi tai email"
                         keyboardType="email-address"
-                        style={{
-                            width: '80%',
-                            backgroundColor: 'white',
-                            opacity: 0.7,
-                            borderColor: 'grey',
-                            borderWidth: 1,
-                            marginTop: 10
-                        }}
+                        style={styles.textInput}
                         onChangeText={username => setEmail(username)}
                         value={email} 
                     />
                     <TextInput 
                         placeholder="  Salasana"
-                        style={{
-                            width: '80%',
-                            backgroundColor: 'white',
-                            opacity: 0.7,
-                            borderColor: 'grey',
-                            borderWidth: 1,
-                            marginTop: 10
-                        }}                     
+                        style={styles.textInput}                     
                         onChangeText={pass => setPassword(pass)}
                         value={password}  
                     />
                     <TextInput 
                         placeholder="  Salasana uudelleen"
-                        style={{
-                            width: '80%',
-                            backgroundColor: 'white',
-                            opacity: 0.7,
-                            borderColor: 'grey',
-                            borderWidth: 1,
-                            marginTop: 10
-                        }}                     
+                        style={styles.textInput}                    
                         onChangeText={pass => setPasswordAgain(pass)}
                         value={passwordAgain}  
                     />
-                    <View style={{ margin: 20 }}>
+                    <View style={styles.button}>
                         <RegisterButton email={email} password={password} passwordAgain={passwordAgain} />
                     </View>
                 </View>
@@ -84,3 +53,5 @@ export default function Register({navigation}) {
         </View>
     )
 }
+
+const styles = tyylit
