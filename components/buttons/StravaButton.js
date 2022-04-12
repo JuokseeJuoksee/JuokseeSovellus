@@ -28,7 +28,9 @@ export default function StravaButton() {
      preferLocalhost: true
     })
     const redirecturlANDROID =
-    makeRedirectUri({})
+    makeRedirectUri({
+        preferLocalhost: true
+       })
  
     console.log(redirecturlIOS)
 
