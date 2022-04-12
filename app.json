@@ -4,7 +4,6 @@
     "scheme":"exp",
     "slug": "urheilukelloappi",
     "version": "1.0.0",
-    "scheme":"exp",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
