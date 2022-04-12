@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { View, Text, ImageBackground, TextInput, Button } from "react-native";
+import { StyleSheet, View, Text, ImageBackground, TextInput, Button } from "react-native";
 import LoginButton from "../../components/buttons/LoginButton";
 import LoginFacebook from "../../components/buttons/LoginFacebook";
 import LoginGoogle from "../../components/buttons/LoginGoogle";
 import Image from '../../assets/background.jpg'
 import userContext from "../../context/user/userContext";
 import { StatusBar } from "expo-status-bar";
+import StyleSheet from "../../style/style.js"
 
 export default function Login({navigation}) {
 
@@ -24,55 +25,30 @@ export default function Login({navigation}) {
             flex: 1
         }}>
             <ImageBackground 
-                style={{
-                    flex:1,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}
+                style={styles.image}
                 resizeMode="cover"
                 source={Image}
             >         
-                <View style={{
-                    height: '80%',
-                    width: '90%',
-                    backgroundColor: 'white',
-                    opacity: 0.7,
-                    borderRadius: 20,
-                    alignItems: 'center'               
-                }}> 
+                <View style={styles.box}> 
                     <Text style={{ fontSize: 25 }}>Kirjaudu sisään</Text>
                     <TextInput 
                         placeholder="  Käyttäjänimi tai email"
                         keyboardType="email-address"
-                        style={{
-                            width: '80%',
-                            backgroundColor: 'white',
-                            opacity: 0.7,
-                            borderColor: 'grey',
-                            borderWidth: 1,
-                            marginTop: 10
-                        }}
+                        style={styles.textInput}
                         onChangeText={username => setEmail(username)}
                         value={email} 
                     />
                     <TextInput 
                         placeholder="  Salasana"
-                        style={{
-                            width: '80%',
-                            backgroundColor: 'white',
-                            opacity: 0.7,
-                            borderColor: 'grey',
-                            borderWidth: 1,
-                            marginTop: 10
-                        }}                     
+                        style={styles.textInput}                     
                         onChangeText={pass => setPassword(pass)}
                         value={password}  
                         secureTextEntry={true}
                     />
-                    <View style= {{ margin: 20, width: '80%' }}>
+                    <View style= {styles.button}>
                         <LoginButton email={email} password={password} empty={EmptyemailAndPassword} login={login} />
                     </View>
-                    <View style= {{ marginBottom: 20, width: '80%' }}>
+                    <View style= {styles.button}>
                         <Button 
                             title="Rekisteröidy" 
                             onPress={() => navigation.navigate("Rekisteröidy")}
