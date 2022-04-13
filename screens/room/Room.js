@@ -39,10 +39,10 @@ export default function Room({ navigation, route }) {
 
     const isUserInRoom = () => {
         let boolean = false
-        for (let i; i < room[1].users.length; i++) {
-            if (room[1].users[i] == auth.currentUser.uid) boolean = true
-        }
-        console.log(boolean)
+        room[1].users.forEach(user => {
+            if(user == auth.currentUser.uid) boolean = true
+        })
+        
         return boolean
     }
 
