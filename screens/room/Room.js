@@ -148,7 +148,7 @@ export default function Room({ navigation, route }) {
                 </View>
                 <View style={{ flex: 1 }}>
                     {
-                        !isUserInRoom && 
+                        !isUserInRoom() && 
                         <Button
                         title="liity huoneeseen"
                         onPress={userToRoom}

@@ -33,12 +33,8 @@ export default function StravaButton() {
      preferLocalhost: true
     })
 
-<<<<<<< HEAD
     const redirecturlANDROID = 
     makeRedirectUri({
-=======
-    const redirecturlANDROID =  makeRedirectUri({
->>>>>>> ad75067c345020da2e642a87f84b078a74fe3bb4
         // TÄHÄN OIKEALLA TAVALLA
        })
  
