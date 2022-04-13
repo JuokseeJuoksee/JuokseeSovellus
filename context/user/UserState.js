@@ -12,6 +12,7 @@ export default function UserState(props) {
         seenWelcome: false,
         strava: null
     }
+       
 
     const [state, dispatch] = useReducer(userReducer, initialState)
 
