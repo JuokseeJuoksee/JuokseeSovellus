@@ -55,7 +55,7 @@ export default function Navigator() {
   } 
 
 
-  if (state.user.user && state.strava === true) {
+  if (state.user.user && state.strava) {
     return (
       <NavigationContainer>      
           <Tab.Navigator screenOptions={screenOptions}>
@@ -66,7 +66,7 @@ export default function Navigator() {
       </NavigationContainer>
     )
   } 
-  else if(state.user.user && state.strava !== true){
+  else if(state.user.user && !state.strava){
     return(
       <NavigationContainer>      
             <Tab.Navigator screenOptions={screenOptions}>

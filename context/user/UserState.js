@@ -23,10 +23,10 @@ export default function UserState(props) {
         })
     }
 
-    const strava = () => {
+    const strava = (data) => {
         dispatch({
             type: STRAVA,
-            payload: true
+            payload: data
         })
     }
  
