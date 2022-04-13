@@ -27,7 +27,7 @@ export default function Room({ navigation, route }) {
     React.useEffect(() => console.log(`trainings: ${trainings.length}`),[trainings])
     React.useEffect(() => console.log(`users: ${users.length}`), [users])
 
-    React.useEffect(() => getTrainings(users[users.length -1]), [users])
+    React.useEffect(() => users.forEach((user,index) => getTrainings(users[index])), [users])
 
     const userToRoom = () => {
         update(
@@ -35,6 +35,15 @@ export default function Room({ navigation, route }) {
                 users: [auth.currentUser.uid, ...room[1].users] 
             }
         )
+    }
+
+    const isUserInRoom = () => {
+        let boolean = false
+        for (let i; i < room[1].users.length; i++) {
+            if (room[1].users[i] == auth.currentUser.uid) boolean = true
+        }
+        console.log(boolean)
+        return boolean
     }
 
     const getUsers = () => {
@@ -138,10 +147,13 @@ export default function Room({ navigation, route }) {
                     <Text>Tähän tulee taulukko tilanteesta</Text>    
                 </View>
                 <View style={{ flex: 1 }}>
-                    <Button
-                    title="liity huoneeseen"
-                    onPress={userToRoom}
-                    ></Button>    
+                    {
+                        !isUserInRoom && 
+                        <Button
+                        title="liity huoneeseen"
+                        onPress={userToRoom}
+                        ></Button>
+                    }
                 </View>
                 <View style={{ flex: 1, marginBottom: 200 }}>
                     <Chat room={room} />  
