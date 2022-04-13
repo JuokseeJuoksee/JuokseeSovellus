@@ -33,17 +33,19 @@ export default function StravaButton() {
      preferLocalhost: true
     })
 
-    const redirecturlANDROID =
+    const redirecturlANDROID = 
     makeRedirectUri({
         // TÄHÄN OIKEALLA TAVALLA
        })
  
+       //exp://192.168.1.3:19000
+
     const [request, response, promptAsync] = useAuthRequest(
        
         {
           clientId: '76862',
           scopes: ['activity:read_all'],
-          redirectUri: "exp://127.0.0.1:19000/redirect", //productissa expon oma redirect osote
+          redirectUri: device === 'android' ? redirecturlANDROID : redirecturlIOS
 
         },
         discovery

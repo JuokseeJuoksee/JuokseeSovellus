@@ -9,7 +9,7 @@ export default function StravaWelcome({navigation}) {
     return (
         <View style={{
             flex: 1,
-            marginTop:50 
+            // marginTop:50 
         }}>
          <ImageBackground 
                 style={{

@@ -9,7 +9,7 @@ const auth = getAuth(app)
 
 export default function WelcomePage() {
 
-    const { login } = useContext(userContext)
+    const { login, strava } = useContext(userContext)
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
