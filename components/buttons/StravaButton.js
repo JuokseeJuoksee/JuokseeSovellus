@@ -33,8 +33,7 @@ export default function StravaButton() {
      preferLocalhost: true
     })
 
-    const redirecturlANDROID =
-    makeRedirectUri({
+    const redirecturlANDROID =  makeRedirectUri({
         // TÄHÄN OIKEALLA TAVALLA
        })
  
@@ -53,9 +52,6 @@ export default function StravaButton() {
         if (response?.type === 'success') {
           const { code } = response.params
           getAthleteTokens(code)
-
-          strava()
-
           }
     }, [response]);
 
@@ -64,6 +60,7 @@ export default function StravaButton() {
         .then(res => {
             console.log(res.data)
             putTokensToUser(res.data)})
+            // strava()
         .catch(err => console.error(err))
     }
 

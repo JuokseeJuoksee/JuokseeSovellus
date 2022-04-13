@@ -22,7 +22,7 @@ export default function UserState(props) {
         })
     }
 
-    const strava = (user) => {
+    const strava = () => {
         dispatch({
             type: STRAVA,
             payload: true
@@ -37,6 +37,7 @@ export default function UserState(props) {
     }
 
     const register = (user) => {
+        console.log(user.user)
         dispatch({
             type: REGISTER,
             payload: user
