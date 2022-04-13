@@ -61,8 +61,11 @@ export default function StravaButton() {
         axios.post(`https://www.strava.com/oauth/token?client_id=76862&client_secret=67401766aa8757e4f2c742595091a8d3014137c6&code=${code}&grant_type=authorization_code`)
         .then(res => {
             console.log(res.data)
-            putTokensToUser(res.data)})
-            // strava()
+            putTokensToUser(res.data)
+            strava()
+          }
+            )
+           
         .catch(err => console.error(err))
     }
 
