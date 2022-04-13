@@ -22,24 +22,28 @@ const auth = getAuth(app)
 export default function StravaButton() {
 
     const { login, register, strava } = React.useContext(userContext)
+    const [device, setDevice] = React.useState('')
+
+    React.useEffect(() => {
+      setDevice(Platform.OS === 'ios' ? 'ios' : 'android')
+    },[])
 
     const redirecturlIOS =
      makeRedirectUri({
      preferLocalhost: true
     })
+
     const redirecturlANDROID =
     makeRedirectUri({
-        preferLocalhost: true
+        // TÄHÄN OIKEALLA TAVALLA
        })
  
-    console.log(redirecturlIOS)
-
     const [request, response, promptAsync] = useAuthRequest(
        
         {
           clientId: '76862',
           scopes: ['activity:read_all'],
-          redirectUri: redirecturlANDROID
+          redirectUri: "exp://127.0.0.1:19000/redirect", //productissa expon oma redirect osote
 
         },
         discovery
