@@ -27,7 +27,9 @@ export default function Room({ navigation, route }) {
     React.useEffect(() => console.log(`trainings: ${trainings.length}`),[trainings])
     React.useEffect(() => console.log(`users: ${users.length}`), [users])
 
-    React.useEffect(() => users.forEach((user,index) => getTrainings(users[index])), [users])
+    React.useEffect(() => {
+        setTrainings([])
+        users.forEach((user,index) => getTrainings(users[index]))}, [users])
 
     const userToRoom = () => {
         update(
@@ -56,9 +58,8 @@ export default function Room({ navigation, route }) {
          })
         })
 
-    }
-
-    const getTrainings = async (user) => {
+    } 
+    const getTrainings = (user) => {
         
         console.log('getting users trainings')
 
