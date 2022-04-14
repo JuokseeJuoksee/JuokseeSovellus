@@ -3,7 +3,12 @@ import { StyleSheet, View, Text, Button, FlatList } from 'react-native';
 // import {Storage, sessionStorage } from '../classes/Storage'
 import axios from 'axios';
 import Training from './Training';
+import { getAuth} from "firebase/auth"
+import { app } from '../../database/firebase'
+import { push, ref, set,update, onValue } from "firebase/database"
+import { db } from '../../database/firebase'
 
+const auth = getAuth(app)
 export default function Trainings({trainings, navigation, users}) {
 
   const renderItem = ({item}) => {

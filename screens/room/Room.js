@@ -1,10 +1,13 @@
 import { View, Text, ImageBackground } from "react-native"
 import { Avatar, Button, Icon } from "react-native-elements"
 import { db } from "../../database/firebase";
-import { onValue, ref } from "firebase/database";
+import { onValue, ref, update } from "firebase/database";
 import { useState } from "react";
 import { useEffect } from "react";
+import { getAuth} from "firebase/auth"
+import { app } from '../../database/firebase'
 
+const auth = getAuth(app)
 export default function Room({ navigation, route }) {
 
     const [users, setUsers] = useState([])
@@ -28,6 +31,24 @@ export default function Room({ navigation, route }) {
             }
         )
     }, [])
+
+    const userToRoom = () => {
+        update(
+            ref(db, `rooms/${route.params.roomId}` ),{
+                users: [auth.currentUser.uid, ...users] 
+            }
+        )
+    }
+
+    const isUserInRoom = () => {
+        let boolean = false
+        users.forEach(user => {
+            if(user == auth.currentUser.uid) boolean = true
+        })
+        
+        return boolean
+    }
+
 
     return (
         <View style={{
@@ -66,7 +87,14 @@ export default function Room({ navigation, route }) {
                     backgroundColor: "#F25C05",
                     alignItems: "center"
                 }}>
-                    <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Mukana Skabassa</Text>
+                    {isUserInRoom() ? <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Mukana Skabassa</Text> : <View>
+                        <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Et ole huoneessa</Text>
+                        <Button
+                        title="liity Skabaan"
+                        onPress={userToRoom}
+                        ></Button>
+                        </View>}
+
                     <View style={{
                         flexDirection: "row"
                     }}>
