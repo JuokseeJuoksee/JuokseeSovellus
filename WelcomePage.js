@@ -20,8 +20,11 @@ export default function WelcomePage() {
                     ref(db, `users/${uid}`), (snapshot) => {
                         const data  = snapshot.val()
                         login(data)
+                        console.log(data)
                         if (data.athlete_id) {
-                            strava()
+                            strava(true)
+                        }else{
+                            strava(null)
                         }
                     }
                 )
