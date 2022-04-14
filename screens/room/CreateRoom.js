@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { push, ref } from 'firebase/database';
 import { app } from '../../database/firebase'
 import { getAuth } from 'firebase/auth';
+import { useContext } from 'react';
+import userContext from '../../context/user/userContext';
 
 const auth = getAuth(app)
 const user = auth.currentUser;
@@ -12,21 +14,18 @@ const user = auth.currentUser;
 export default function CreateRoom({ navigation }) {
 
     const [roomName, setRoomName] = useState('')
-    const [username, setUsername] = useState('')
-
-    useEffect(() => {
-        //setUsername(user.email.split('@')[0].replace('.', ''))
-    }, [])
+    const { state } = useContext(userContext)
 
     const saveRoom = () => {
         if (roomName) {
             push(
                 ref(db, 'rooms'), {
                     roomname: roomName,
-                    host: username,
+                    host: state.user.userId,
+                    hostPictureUrl: state.user.athlete_picture,
                     messages: [{send: new Date().getTime(), message: "Ei vielä viestejä, ole ensimmäinen"}],
                     created: new Date().getTime(),
-                    users: [auth.currentUser.uid]
+                    users: [state.user.userId]
                 }
             )
             setRoomName('')

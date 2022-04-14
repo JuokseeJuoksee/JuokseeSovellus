@@ -2,7 +2,8 @@ import { View, Text, ImageBackground } from "react-native";
 import userContext from "./context/user/userContext";
 import { useContext, useEffect } from "react";
 import { getAuth } from "firebase/auth";
-import { app } from "./database/firebase";
+import { app, db } from "./database/firebase";
+import { onValue, ref } from "firebase/database";
 import Image from "./assets/background.jpg";
 
 const auth = getAuth(app)
@@ -13,7 +14,18 @@ export default function WelcomePage() {
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
-            user ? login({user: user}) : login({user: null})
+            if (user) {
+                const uid = user.uid
+                onValue(
+                    ref(db, `users/${uid}`), (snapshot) => {
+                        const data  = snapshot.val()
+                        login(data)
+                        if (data.athlete_id) {
+                            strava()
+                        }
+                    }
+                )
+            }
         })
     },[])
 
