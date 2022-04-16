@@ -23,14 +23,19 @@ export default function Rooms({navigation}) {
     }, [])
 
     const ListSeparator = () => {
-        return <View style={{ height: 40, borderBottomColor: "grey", borderBottomWidth: 1, opacity: 0 }} />
+        return <View style={{
+            height: 8
+        }}/>
     }
 
     const RenderedItem = item => {
         return (
-            <ListItem>
+            <ListItem style={{
+                opacity: 0.8
+            }}>
                 <Avatar 
                     source={item[1].hostPictureUrl ? { uri: item[1].hostPictureUrl } : DefAvatar }
+                    rounded
                 />
                 <ListItem.Content>
                     <ListItem.Title>{item[1].roomname}</ListItem.Title>
@@ -66,12 +71,12 @@ export default function Rooms({navigation}) {
         <FlatList 
             style={{
                 width: '90%',
-                marginTop: 20
+                marginTop: 40,
             }}
             data={rooms}
             keyExtractor={(item, index) => index}
             renderItem={({item}) => RenderedItem(item) }
-            listSeparator={ListSeparator}
+            ItemSeparatorComponent={ListSeparator}
         />
         </ImageBackground>
     </View>

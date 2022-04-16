@@ -6,9 +6,9 @@ import CreateRoom from './screens/room/CreateRoom';
 import LoginNavigator from './screens/login/LoginNavigator';
 import userContext from './context/user/userContext';
 import WelcomePage from './WelcomePage';
-import RoomTopNavigator from './screens/room/RoomTopNavigator';
 import StravaWelcome from './screens/login/StravaWelcome';
 import { Icon } from 'react-native-elements';
+import RoomNavigator from './screens/room/RoomNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -56,7 +56,7 @@ export default function Navigator() {
       <NavigationContainer>      
           <Tab.Navigator screenOptions={screenOptions}>
               <Tab.Screen name="Profiili" component={Profile} options={{ headerShown: false, tabBarHideOnKeyboard: true }}  />
-              <Tab.Screen name="Kilpailut" component={RoomTopNavigator} options={{ headerShown: false, tabBarHideOnKeyboard: true }} />
+              <Tab.Screen name="Kilpailut" component={RoomNavigator} options={{ headerShown: false, tabBarHideOnKeyboard: true }} />
               <Tab.Screen name="Luo" component={CreateRoom} options={{ headerShown: false,tabBarHideOnKeyboard: true }} />
           </Tab.Navigator>
       </NavigationContainer>

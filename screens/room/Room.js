@@ -1,9 +1,10 @@
-import { View, Text, ImageBackground } from "react-native"
-import { Avatar, Button, Icon } from "react-native-elements"
+import { View, Text, ImageBackground, FlatList } from "react-native"
+import { Avatar, Button, Icon, ListItem } from "react-native-elements"
 import { db } from "../../database/firebase";
 import { onValue, ref } from "firebase/database";
 import { useState } from "react";
 import { useEffect } from "react";
+import DefAvatar from "../../assets/avatar.png";
 
 export default function Room({ navigation, route }) {
 
@@ -23,11 +24,20 @@ export default function Room({ navigation, route }) {
         onValue(
             ref(db, "users"), (snapshot) => {
                 const data = snapshot.val()
-                const all = Object.entries(data).map(item => ({[item[0]]: item[1].athlete_picture}))
-                setAllUsers(all)
+                setAllUsers(Object.values(data))
             }
         )
     }, [])
+
+    const RenderItem = item => {
+        return (
+            <View style={{
+                margin: 5
+            }}>
+                <Avatar onPress={() => navigation.navigate("userstrainings", {user: item, roomId: route.params.roomId})} rounded source={item.athlete_picture ? { uri: item.athlete_picture } : DefAvatar} />
+            </View>
+        )
+    }
 
     return (
         <View style={{
@@ -62,16 +72,18 @@ export default function Room({ navigation, route }) {
                 </View>
 
                 <View style={{
-                    flex: 1,
+                    flex: 0.3,
                     backgroundColor: "#F25C05",
                     alignItems: "center"
                 }}>
                     <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Mukana Skabassa</Text>
-                    <View style={{
-                        flexDirection: "row"
-                    }}>
-                        
-                    </View>
+                        <FlatList 
+                            horizontal={true}
+                            data={allUsers.filter(user => users.includes(user.userId))}
+                            keyExtractor={(item, index) => index}
+                            renderItem={({item}) => RenderItem(item)}
+                        />
+                       
                 </View>
 
             </View>
