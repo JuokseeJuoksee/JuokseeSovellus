@@ -21,10 +21,13 @@ export default function WelcomePage() {
                         const data  = snapshot.val()
                         login(data)
                         console.log(data)
-                        if (data.athlete_id) {
-                            strava(true)
-                        }else{
-                            strava(null)
+                        if(data){
+                            if (data.athlete_id) {
+                                strava(true)
+                            }else{
+                                strava(null) 
+                            }
+                            
                         }
                     }
                 )

@@ -6,6 +6,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getAuth} from "firebase/auth"
 import { app } from '../../database/firebase'
+import Competition from "./Competition";
+import axios from "axios";
+import { async } from "@firebase/util";
 
 const auth = getAuth(app)
 
@@ -32,6 +35,12 @@ export default function Room({ navigation, route }) {
     const [allUsers, setAllUsers] = useState([])
     const [fullUsers, setFullUsers] = useState([])
 
+    const [trainings, setTrainings] = useState([])
+
+
+
+   
+
     useEffect(() => {
         onValue(
             ref(db, `rooms/${route.params.roomId}`), (snapshot) => {
@@ -47,6 +56,7 @@ export default function Room({ navigation, route }) {
                 const data = snapshot.val()
                 const all = Object.entries(data).map(item => ({[item[0]]: item[1].athlete_picture}))
                 setAllUsers(all)
+                
             }
         )
     }, [])
@@ -57,11 +67,23 @@ export default function Room({ navigation, route }) {
             onValue(userRef, (snapshot) => {
                 const data = snapshot.val()
                 setFullUsers(arr => [...arr, data])
+                getTrainings(data)
          })
         })
+        // .then(_any=>userTrainings())
+        
     }, [users])
 
-    useEffect(() => console.log(fullUsers),[fullUsers])
+   
+    //    const userTrainings =  ()=>{
+    //         console.log("in user training")
+    //         fullUsers.forEach((user) => {
+    //             getTrainings(user)
+    //         })
+    //    }
+   
+
+    // useEffect(() => console.log(fullUsers),[fullUsers])
 
     const userToRoom = () => {
         update(
@@ -83,12 +105,33 @@ export default function Room({ navigation, route }) {
     const renderUsers = (item) => {
         return <TouchableOpacity style={styles.row}
                     title={item.item.athlete_name}
-                    onPress={() => console.log(item.item.athlete_name)}
+                    onPress={() => console.log("renderusers")}
                 >
                     <Text style={styles.text}>{item.item.athlete_name}</Text>
                     <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar}  />
                 </TouchableOpacity>
                 
+    }
+
+    // tähän vielä myöhemmin että onko juoksu yms nyt tulee kaikki
+    //jos vanha accesstoken niin ei toimi vielä
+    const getTrainings = (user) => {
+
+        console.log('getting users trainings', user)
+
+        axios.get('https://www.strava.com/api/v3/athlete/activities' ,{
+          headers : { 
+            'Authorization': "Bearer "+user.access_token
+          }
+        })
+        .then(res => {
+          setTrainings(arr => [...arr, res])
+          console.log(res.data)
+        })
+        .catch(err => { 
+            console.error(err, "VANHA ACCESS TOKEN :)")
+            // getAccessToken(user)
+        })
     }
 
 
@@ -122,6 +165,7 @@ export default function Room({ navigation, route }) {
                     flex: 1
                 }}>
                     <Text>Tilanne</Text>
+                    <Competition ></Competition>
                 </View>
 
                 <View style={{

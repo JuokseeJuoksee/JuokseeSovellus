@@ -10,7 +10,7 @@ export default function UserState(props) {
     const initialState = {
         user: null,
         seenWelcome: false,
-        strava: null
+        strava: false
     }
        
 

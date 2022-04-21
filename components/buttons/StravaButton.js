@@ -60,7 +60,7 @@ export default function StravaButton() {
         .then(res => {
             console.log(res.data)
             putTokensToUser(res.data)})
-            // strava()
+            //  strava(true)
         .catch(err => console.error(err))
     }
 
