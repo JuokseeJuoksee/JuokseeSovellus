@@ -10,7 +10,8 @@ export default function Profile({navigation}) {
             flex: 1,
         }}>
             <View style={{ marginTop:50 }}>
-            <LogoutButton />
+                <LogoutButton />
+                <StravaButton />
             </View>
            
         </View>

@@ -1,5 +1,5 @@
-import { View, Text, ImageBackground } from "react-native"
-import { Avatar, Button, Icon } from "react-native-elements"
+import { View, Text, ImageBackground, FlatList, TouchableOpacity, StyleSheet } from "react-native"
+import { Avatar, Button, Icon, ListItem } from "react-native-elements"
 import { db } from "../../database/firebase";
 import { onValue, ref, update } from "firebase/database";
 import { useState } from "react";
@@ -8,10 +8,29 @@ import { getAuth} from "firebase/auth"
 import { app } from '../../database/firebase'
 
 const auth = getAuth(app)
+
+const styles = StyleSheet.create({
+    row: {
+        flexDirection:'row',
+        padding:7,
+        borderStyle:'solid',
+        borderWidth:1,
+        marginTop:5,
+        borderRadius: 8,
+        borderColor:'white'
+    },
+    text:{
+        marginTop:10,
+        width:'80%',
+        color:'white'
+    }
+})
+
 export default function Room({ navigation, route }) {
 
     const [users, setUsers] = useState([])
     const [allUsers, setAllUsers] = useState([])
+    const [fullUsers, setFullUsers] = useState([])
 
     useEffect(() => {
         onValue(
@@ -32,6 +51,18 @@ export default function Room({ navigation, route }) {
         )
     }, [])
 
+    useEffect(() => {
+        users.forEach(element => {
+            const userRef = ref(db, 'users/' + element)
+            onValue(userRef, (snapshot) => {
+                const data = snapshot.val()
+                setFullUsers(arr => [...arr, data])
+         })
+        })
+    }, [users])
+
+    useEffect(() => console.log(fullUsers),[fullUsers])
+
     const userToRoom = () => {
         update(
             ref(db, `rooms/${route.params.roomId}` ),{
@@ -47,6 +78,17 @@ export default function Room({ navigation, route }) {
         })
         
         return boolean
+    }
+
+    const renderUsers = (item) => {
+        return <TouchableOpacity style={styles.row}
+                    title={item.item.athlete_name}
+                    onPress={() => console.log(item.item.athlete_name)}
+                >
+                    <Text style={styles.text}>{item.item.athlete_name}</Text>
+                    <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar}  />
+                </TouchableOpacity>
+                
     }
 
 
@@ -95,11 +137,12 @@ export default function Room({ navigation, route }) {
                         ></Button>
                         </View>}
 
-                    <View style={{
-                        flexDirection: "row"
-                    }}>
-                        
-                    </View>
+                    <FlatList
+                        style={{width:'90%'}}
+                        data={fullUsers}
+                        renderItem={renderUsers}
+                        keyExtractor={user=> user.userId}
+                    ></FlatList>
                 </View>
 
             </View>

@@ -98,12 +98,8 @@ export default function StravaButton() {
 }const styles = StyleSheet.create({
     
     buttonContainer2: {
-        flex: 1,
-        bottom:0,
-        position:"absolute",
-        backgroundColor: 'transparent',
-        flexDirection: 'row',
-        marginBottom: "30%",
+      margin:'auto',
+      alignItems:'center'
       },
     button: {
       flex: 1,
@@ -112,6 +108,6 @@ export default function StravaButton() {
     },
     text: {
       fontSize: 20,
-      color: 'white',
+      
     },
   });
