@@ -105,7 +105,7 @@ export default function Room({ navigation, route }) {
     const renderUsers = (item) => {
         return <TouchableOpacity style={styles.row}
                     title={item.item.athlete_name}
-                    onPress={() => console.log("renderusers")}
+                    onPress={() => navigation.navigate("Trainings",item.item)}
                 >
                     <Text style={styles.text}>{item.item.athlete_name}</Text>
                     <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar}  />
