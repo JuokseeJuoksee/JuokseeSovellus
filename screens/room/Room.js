@@ -165,7 +165,7 @@ export default function Room({ navigation, route }) {
                     flex: 1
                 }}>
                     <Text>Tilanne</Text>
-                    <Competition ></Competition>
+                    <Competition trainings={trainings} ></Competition>
                 </View>
 
                 <View style={{

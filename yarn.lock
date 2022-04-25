@@ -2963,10 +2963,10 @@ electron-to-chromium@^1.4.84:
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.89.tgz"
   integrity sha512-z1Axg0Fu54fse8wN4fd+GAINdU5mJmLtcl6bqIcYyzNVGONcfHAeeJi88KYMQVKalhXlYuVPzKkFIU5VD0raUw==
 
-elosystems@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/elosystems/-/elosystems-1.0.1.tgz#dcdd182db8fecb848d27b65cd7c088e9d728f954"
-  integrity sha512-5DuJUwguLHHDdD+IX81c6Fk/jfiaNLHpfTEmzGDmUlZCpujtQj907dKEiat99wCvF8FMb0xq/3L/CUMcZ0A8ng==
+elosystems@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/elosystems/-/elosystems-1.0.3.tgz#11f36e7c64aebaee59a6a19e53b2cfdd2d64bfd8"
+  integrity sha512-RGN86Y/aUzc/3/Ebte6NTmNJ4b6Mu9jtdwc1/uZasUfjuSb9kApyXosfHEHSQVKttW1JZEZqGfGLOqLltg+t+Q==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
