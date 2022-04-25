@@ -70,7 +70,6 @@ export default function Room({ navigation, route }) {
                 getTrainings(data)
          })
         })
-        // .then(_any=>userTrainings())
         
     }, [users])
 
@@ -112,17 +111,13 @@ export default function Room({ navigation, route }) {
     //jos vanha accesstoken niin ei toimi vielä
     const getTrainings = (user) => {
 
-        // console.log('getting users trainings!!!!!!!!!!!!!!!!!', user)
-
         axios.get('https://www.strava.com/api/v3/athlete/activities' ,{
           headers : { 
             'Authorization': "Bearer "+user.access_token
           }
         })
         .then(res => {
-        //   setTrainings(...trainings, function(res){return {res})
-        setTrainings(arr => [...arr, {athlete_name: user.athlete_name, athlete_elo: 100, trainings: res}])
-           //console.log("RES DATA", res)
+            setTrainings(arr => [...arr, {athlete_name: user.athlete_name, athlete_elo: 100, trainings: res}])
         })
         .catch(err => { 
             console.error(err, "VANHA ACCESS TOKEN :)")

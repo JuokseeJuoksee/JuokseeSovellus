@@ -4,10 +4,8 @@ import { View, Button, ImageBackground, Text } from "react-native";
 
 
 export default function Competition(props) {
+    
 const [chartData, setChartData] = useState([])
-// const trainings = props.trainings
-
-//  console.log("TASSAADFDFDSFWESFDDDDDDDDDDD",props.usersAndTrainings)
 
 
 useEffect(() => {
@@ -15,16 +13,11 @@ useEffect(() => {
     let totalKm=0;
 
     props.usersAndTrainings.forEach(element => {
-        //  console.log("ELEMENT", element.athlete_name)
-        // console.log("ELEMENT", element.athlete_elo)
-         console.log("ELEMENT", element.trainings.data)
         if(element.trainings.data[0]===undefined || element.trainings.data[0]===[]){
             arr.push({athlete_name: element.athlete_name, athlete_elo: element.athlete_elo, points: 1})
         }
         else{
-
             element.trainings.data.forEach(km=>{
-                // console.log(km.distance)
                 totalKm = totalKm + km.distance
             })
 
@@ -35,13 +28,11 @@ useEffect(() => {
         }
     })
 
-    
     setChartData(arr)
    
 }, [props])
 
 
-// console.log(chartData)
     
     return (
 
