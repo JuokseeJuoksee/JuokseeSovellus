@@ -1,29 +1,60 @@
 import { runnerElo, runningIndex, runningIndexWithSpeed, teamVersusElo } from "elosystems";
-import { View, Button, ImageBackground } from "react-native";
+import { useEffect, React, useState } from "react";
+import { View, Button, ImageBackground, Text } from "react-native";
 
 
-export default function Competition() {
+export default function Competition(props) {
+const [chartData, setChartData] = useState([])
+// const trainings = props.trainings
+
+//  console.log("TASSAADFDFDSFWESFDDDDDDDDDDD",props.usersAndTrainings)
 
 
-// console.log(runningIndex(100, 30))
+useEffect(() => {
+    const arr = []
+    let totalKm=0;
 
-// // attributes: players elo, distance in KM, min/km speed
-// console.log(runningIndexWithSpeed(100, 20,4))
+    props.usersAndTrainings.forEach(element => {
+        //  console.log("ELEMENT", element.athlete_name)
+        // console.log("ELEMENT", element.athlete_elo)
+         console.log("ELEMENT", element.trainings.data)
+        if(element.trainings.data[0]===undefined || element.trainings.data[0]===[]){
+            arr.push({athlete_name: element.athlete_name, athlete_elo: element.athlete_elo, points: 1})
+        }
+        else{
 
-// // attributes: players current elo, placement, AvgElo,amountOfParticipants
-// console.log(runnerElo(70, 1, 90, 5))
+            element.trainings.data.forEach(km=>{
+                // console.log(km.distance)
+                totalKm = totalKm + km.distance
+            })
 
-console.log(teamVersusElo(800, true,900,800))
+            // npm paketti ohjelmistokurssilta
+            const points = runningIndex(element.athlete_elo, totalKm/1000)
+
+            arr.push({athlete_name: element.athlete_name, athlete_elo: element.athlete_elo, points: points})
+        }
+    })
+
+    
+    setChartData(arr)
+   
+}, [props])
 
 
+// console.log(chartData)
     
     return (
 
+    
         <View style={{
-            flex: 1,
-            // marginTop:50 
+             flex: 1,
+            marginTop:50 
         }}>
         
+        {chartData.map(item=>
+            <Text style={{fontSize:20}}>{item.athlete_name} : {item.points}</Text>
+        )}
+
             
         </View>
     )
