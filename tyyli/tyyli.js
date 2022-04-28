@@ -32,8 +32,13 @@ const tyylit = StyleSheet.create({
         backgroundColor: 'white',
         opacity: 0.7,
         borderRadius: 20,
-        alignItems: 'center' 
-    }
+        alignItems: 'center', 
+    },
+    profile: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
 })
 
 export default tyylit;
