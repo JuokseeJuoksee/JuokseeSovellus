@@ -19,7 +19,7 @@
     "axios": "^0.26.1",
     "dayjs": "^1.11.1",
     "dotenv": "^16.0.0",
-    "elosystems": "^1.0.3",
+    "elosystems": "^1.0.4",
     "expo": "~44.0.0",
     "expo-auth-session": "~3.5.0",
     "expo-font": "^10.0.5",

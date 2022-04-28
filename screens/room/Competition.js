@@ -14,6 +14,7 @@ useEffect(() => {
     let totalKm=0;
     // console.log(runningIndex(100, 55))
     props.usersAndTrainings.forEach(element => {
+        totalKm=0
         if(element.trainings.data[0]===undefined || element.trainings.data[0]===[]){
             arr.push({athlete_name: element.athlete_name, athlete_elo: element.athlete_elo, points: 1})
         }
@@ -23,9 +24,11 @@ useEffect(() => {
             })
 
             // npm paketti ohjelmistokurssilta
-            // TODO: const points = runningIndex(element.athlete_elo, totalKm)
-            const points = runningIndex(100, totalKm)
-            arr.push({athlete_name: element.athlete_name, athlete_elo: element.athlete_elo, points: points})
+             const points= runningIndex(element.athlete_elo, totalKm/1000)
+               
+
+            console.log(points)
+             arr.push({athlete_name: element.athlete_name, athlete_elo: element.athlete_elo, points: points})
         }
     })
 
