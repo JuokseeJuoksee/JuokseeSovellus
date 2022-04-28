@@ -162,7 +162,7 @@ export default function Room({ navigation, route }) {
                 </View>
 
                 <View style={{
-                    flex: 1,
+                    flex: 0.5,
                     backgroundColor: "#F25C05",
                     alignItems: "center"
                 }}>
