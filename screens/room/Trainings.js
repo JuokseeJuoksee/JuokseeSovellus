@@ -22,7 +22,7 @@ export default function Trainings({ route, navigation }) {
 
   const getTrainings = () => {
         
-    console.log('getting users trainings')
+    // console.log('getting users trainings')
 
     axios.get('https://www.strava.com/api/v3/athlete/activities', {
       headers : {
@@ -44,7 +44,7 @@ export default function Trainings({ route, navigation }) {
   const getAccessToken = (user) => {
     console.log('getting new tokens')
 
-    console.log(user.refresh_token)
+    // console.log(user.refresh_token)
 
     axios.post(`https://www.strava.com/api/v3/oauth/token?client_id=76862&client_secret=67401766aa8757e4f2c742595091a8d3014137c6&grant_type=refresh_token&refresh_token=${user.refresh_token}`)
     .then(res => {

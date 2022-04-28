@@ -1,29 +1,51 @@
 import { runnerElo, runningIndex, runningIndexWithSpeed, teamVersusElo } from "elosystems";
-import { View, Button, ImageBackground } from "react-native";
+import { useEffect, React, useState } from "react";
+import { View, Button, ImageBackground, Text } from "react-native";
 
 
-export default function Competition() {
+export default function Competition(props) {
+
+const [chartData, setChartData] = useState([])
 
 
-// console.log(runningIndex(100, 30))
+useEffect(() => {
+    const arr = []
+    let totalKm=0;
 
-// // attributes: players elo, distance in KM, min/km speed
-// console.log(runningIndexWithSpeed(100, 20,4))
+    props.usersAndTrainings.forEach(element => {
+        if(element.trainings.data[0]===undefined || element.trainings.data[0]===[]){
+            arr.push({athlete_name: element.athlete_name, athlete_elo: element.athlete_elo, points: 1})
+        }
+        else{
+            element.trainings.data.forEach(km=>{
+                totalKm = totalKm + km.distance
+            })
 
-// // attributes: players current elo, placement, AvgElo,amountOfParticipants
-// console.log(runnerElo(70, 1, 90, 5))
+            // npm paketti ohjelmistokurssilta
+            const points = runningIndex(element.athlete_elo, totalKm/1000)
 
-console.log(teamVersusElo(800, true,900,800))
+            arr.push({athlete_name: element.athlete_name, athlete_elo: element.athlete_elo, points: points})
+        }
+    })
+
+    setChartData(arr)
+   
+}, [props])
 
 
     
     return (
 
+    
         <View style={{
-            flex: 1,
-            // marginTop:50 
+             flex: 1,
+            marginTop:50 
         }}>
         
+        {chartData.map(item=>
+            <Text style={{fontSize:20}}>{item.athlete_name} : {item.points} point(s)</Text>
+        )}
+
             
         </View>
     )

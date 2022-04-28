@@ -70,17 +70,11 @@ export default function Room({ navigation, route }) {
                 getTrainings(data)
          })
         })
-        // .then(_any=>userTrainings())
         
     }, [users])
 
    
-    //    const userTrainings =  ()=>{
-    //         console.log("in user training")
-    //         fullUsers.forEach((user) => {
-    //             getTrainings(user)
-    //         })
-    //    }
+    
    
 
     // useEffect(() => console.log(fullUsers),[fullUsers])
@@ -117,16 +111,13 @@ export default function Room({ navigation, route }) {
     //jos vanha accesstoken niin ei toimi vielä
     const getTrainings = (user) => {
 
-        console.log('getting users trainings', user)
-
         axios.get('https://www.strava.com/api/v3/athlete/activities' ,{
           headers : { 
             'Authorization': "Bearer "+user.access_token
           }
         })
         .then(res => {
-          setTrainings(arr => [...arr, res])
-          console.log(res.data)
+            setTrainings(arr => [...arr, {athlete_name: user.athlete_name, athlete_elo: 100, trainings: res}])
         })
         .catch(err => { 
             console.error(err, "VANHA ACCESS TOKEN :)")
@@ -162,10 +153,12 @@ export default function Room({ navigation, route }) {
                 flex: 1
             }}>
                 <View style={{
-                    flex: 1
+                    flex: 1,
+                    alignContent: "center",
+                    alignItems: "center"
                 }}>
-                    <Text>Tilanne</Text>
-                    <Competition trainings={trainings} ></Competition>
+                    
+                    <Competition usersAndTrainings={trainings} ></Competition>
                 </View>
 
                 <View style={{
