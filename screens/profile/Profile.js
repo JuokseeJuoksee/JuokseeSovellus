@@ -1,6 +1,7 @@
-import { View, Button } from "react-native";
+import { View, Button, Image } from "react-native";
 import LogoutButton from "../../components/buttons/LogoutButton";
 import StravaButton from "../../components/buttons/StravaButton";
+
 
 export default function Profile({navigation}) {
 
@@ -9,11 +10,13 @@ export default function Profile({navigation}) {
         <View style={{
             flex: 1,
         }}>
-            <View style={{ marginTop:50 }}>
-                <LogoutButton />
-                <StravaButton />
+            <View>
+            <Image source={require('../../assets/stravaprofile.png')}/>               
             </View>
-           
+            <View>
+            <LogoutButton />
+            <StravaButton />
+            </View>
         </View>
     )
 }
