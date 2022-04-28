@@ -54,19 +54,15 @@ export default function Trainings({ route, navigation }) {
 
   const putTokensToUser = (tokens, user) => {
     console.log('tokens to user')
-    try {set(
-        ref(db, 'users/' + user.uid), {
-            userId: auth.currentUser.uid,
+    try {
+        update(
+        ref(db, 'users/' + user.userId), {
             access_token: tokens.access_token,
             refresh_token: tokens.refresh_token,
-            athlete_id: user.athlete_id,
-            athlete_name: user.athlete_name,
-            athlete_picture: user.athlete_picture
         }
     ) } catch {console.log('jokin meni pieleen')}
 
 }
-
   React.useEffect(() => getTrainings(),[])
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:'#F25C05'}}>
