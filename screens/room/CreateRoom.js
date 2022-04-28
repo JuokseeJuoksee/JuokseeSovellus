@@ -7,6 +7,8 @@ import { app } from '../../database/firebase'
 import { getAuth } from 'firebase/auth';
 import { useContext } from 'react';
 import userContext from '../../context/user/userContext';
+import {DateInput} from 'react-native-date-input';
+import dayjs from 'dayjs';
 
 const auth = getAuth(app)
 const user = auth.currentUser;
@@ -15,7 +17,8 @@ export default function CreateRoom({ navigation }) {
 
     const [roomName, setRoomName] = useState('')
     const { state } = useContext(userContext)
-
+    const [date, setDate] = useState('');
+   
     const saveRoom = () => {
         if (roomName) {
             push(
@@ -64,7 +67,8 @@ export default function CreateRoom({ navigation }) {
                         }}
                         onChangeText={nimi => setRoomName(nimi)}
                         value={roomName}
-                    />   
+                    />  
+
                     <Button 
                         title='Luo kilpailu'
                         onPress={saveRoom}

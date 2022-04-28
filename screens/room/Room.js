@@ -121,8 +121,33 @@ export default function Room({ navigation, route }) {
         })
         .catch(err => { 
             console.error(err, "VANHA ACCESS TOKEN :)")
-            // getAccessToken(user)
+            getAccessToken(user)
         })
+    }
+    
+    const getAccessToken = (user) => {
+        console.log('getting new tokens')
+    
+        // console.log(user.refresh_token)
+    
+        axios.post(`https://www.strava.com/api/v3/oauth/token?client_id=76862&client_secret=67401766aa8757e4f2c742595091a8d3014137c6&grant_type=refresh_token&refresh_token=${user.refresh_token}`)
+        .then(res => {
+            putTokensToUser(res.data, user)})
+        .catch(err => console.error(err))
+      }
+    
+      const putTokensToUser = (tokens, user) => {
+        console.log('tokens to user')
+        console.log(tokens)
+        console.log(user)
+        try {
+            update(
+            ref(db, 'users/' + user.userId), {
+                access_token: tokens.access_token,
+                refresh_token: tokens.refresh_token,
+            }
+        ) } catch {console.log('jokin meni pieleen')}
+    
     }
 
 
