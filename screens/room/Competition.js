@@ -4,7 +4,7 @@ import { View, Button, ImageBackground, Text } from "react-native";
 
 
 export default function Competition(props) {
-    
+
 const [chartData, setChartData] = useState([])
 
 
@@ -43,7 +43,7 @@ useEffect(() => {
         }}>
         
         {chartData.map(item=>
-            <Text style={{fontSize:20}}>{item.athlete_name} : {item.points}</Text>
+            <Text style={{fontSize:20}}>{item.athlete_name} : {item.points} point(s)</Text>
         )}
 
             

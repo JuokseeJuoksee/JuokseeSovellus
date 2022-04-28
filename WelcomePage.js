@@ -10,11 +10,14 @@ const auth = getAuth(app)
 
 export default function WelcomePage() {
 
-    const { login, strava } = useContext(userContext)
+    const { login, strava, logout} = useContext(userContext)
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
-            if (user) {
+            if(!user.uid){
+                logout()
+            }
+            else if(user) {
                 const uid = user.uid
                 onValue(
                     ref(db, `users/${uid}`), (snapshot) => {
