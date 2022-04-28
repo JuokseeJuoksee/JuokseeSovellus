@@ -1,7 +1,11 @@
 import { runnerElo, runningIndex, runningIndexWithSpeed, teamVersusElo } from "elosystems";
+import { onValue, ref, update } from "firebase/database";
 import { useEffect, React, useState } from "react";
 import { View, Button, ImageBackground, Text } from "react-native";
+import { getAuth} from "firebase/auth"
+import { app, db } from '../../database/firebase'
 
+const auth = getAuth(app)
 
 export default function Competition(props) {
 
@@ -33,10 +37,38 @@ useEffect(() => {
     })
 
     setChartData(arr)
-   
+
 }, [props])
 
+const calculateAvg = ()=>{
+    let indvElo = 0;
+    chartData.forEach((item)=>{
+        indvElo += item.athlete_elo
+    }); 
+    return indvElo/chartData.length
+}
 
+// kutsutaan kun kilpailu päättyy
+const onCompetitionEnd = ()=>{
+
+    
+    const avgElo = calculateAvg()
+
+    const sorted = chartData.sort(function (a, b) {
+        return b.points - a.points;
+    })
+
+    sorted.forEach((item, index)=>{
+      const newElo = runnerElo(item.athlete_elo, index+1, avgElo, chartData.length) 
+
+      update(
+        ref(db, `users/${item.userId}` ),{
+             elo: newElo 
+        }
+    )
+
+    })
+}
     
     return (
 
