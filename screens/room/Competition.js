@@ -40,6 +40,7 @@ useEffect(() => {
 
 }, [props])
 
+// laskee avg elon osallistujien välillä
 const calculateAvg = ()=>{
     let indvElo = 0;
     chartData.forEach((item)=>{
@@ -51,7 +52,6 @@ const calculateAvg = ()=>{
 // kutsutaan kun kilpailu päättyy
 const onCompetitionEnd = ()=>{
 
-    
     const avgElo = calculateAvg()
 
     const sorted = chartData.sort(function (a, b) {
@@ -61,18 +61,27 @@ const onCompetitionEnd = ()=>{
     sorted.forEach((item, index)=>{
       const newElo = runnerElo(item.athlete_elo, index+1, avgElo, chartData.length) 
 
+    // päivittää userin uuden elon
       update(
         ref(db, `users/${item.userId}` ),{
-             elo: newElo 
+            elo: newElo 
         }
     )
 
+    
     })
+
+    // laittaa kiplailun päättyneeksi, (ei testattu)
+    update(
+        ref(db, `rooms/${props.roomId}` ),{
+            ended: true 
+        }
+    )
+
 }
     
     return (
 
-    
         <View style={{
              flex: 1,
             marginTop:50 
@@ -82,7 +91,7 @@ const onCompetitionEnd = ()=>{
             <Text style={{fontSize:20}}>{item.athlete_name} : {item.points} point(s)</Text>
         )}
 
-            
+
         </View>
     )
 }
