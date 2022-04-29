@@ -190,7 +190,7 @@ export default function Room({ navigation, route }) {
                     alignItems: "center"
                 }}>
                     
-                    <Competition usersAndTrainings={trainings} ></Competition>
+                    <Competition usersAndTrainings={trainings} roomId={route.params.roomId}></Competition>
                 </View>
 
                 <View style={{
