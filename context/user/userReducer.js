@@ -14,8 +14,8 @@ const userActions = (state, action) => {
                 }
         case LOGOUT:
             return {
+                ...state,
                 user: null,
-                seenWelcome: false,
                 strava: null
             }
         case REGISTER:

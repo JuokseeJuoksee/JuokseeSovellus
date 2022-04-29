@@ -33,25 +33,11 @@ export default function RegisterButton({ email, password, passwordAgain }) {
         createUserWithEmailAndPassword(auth, email, password)
         .then(user => {
             if (user) {
-                register({
-                    user: user
-                })
+                register(user)
             }
         })
         .catch(err => console.log(err))
     }
-
-    const addUserToDatabase = () => {
-
-        set(
-            ref(db, 'users/' + auth.currentUser.uid), {
-                userId: auth.currentUser.uid,
-            }
-        )
-        .catch(err => Alert.alert("Jokin meni pieleen"))
-
-    }
-
 
     return (
         <Button 
