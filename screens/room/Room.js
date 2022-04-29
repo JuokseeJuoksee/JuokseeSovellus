@@ -8,7 +8,6 @@ import { getAuth} from "firebase/auth"
 import { app } from '../../database/firebase'
 import Competition from "./Competition";
 import axios from "axios";
-import { async } from "@firebase/util";
 
 const auth = getAuth(app)
 
@@ -37,7 +36,15 @@ export default function Room({ navigation, route }) {
 
     const [trainings, setTrainings] = useState([])
 
+    const [room, setRoom] = useState()
 
+    useEffect(() => {
+        onValue(
+            ref(db, `rooms/${route.params.roomId}`), (snapshot) => {
+                setRoom(snapshot.val())
+            }
+        )
+    }, [])
 
    
 
