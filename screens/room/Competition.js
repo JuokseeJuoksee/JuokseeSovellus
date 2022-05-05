@@ -4,13 +4,15 @@ import { useEffect, React, useState } from "react";
 import { View, Button, ImageBackground, Text } from "react-native";
 import { getAuth} from "firebase/auth"
 import { app, db } from '../../database/firebase'
+import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+
 
 const auth = getAuth(app)
 
 export default function Competition(props) {
 
 const [chartData, setChartData] = useState([])
-
+const [loaded, setLoaded] = useState(false)
 
 
 useEffect(() => {
@@ -37,6 +39,8 @@ useEffect(() => {
     })
 
     setChartData(arr)
+    setLoaded(true)
+    console.log("aeaea",arr)
 
 }, [props])
 
@@ -83,14 +87,18 @@ const onCompetitionEnd = ()=>{
     return (
 
         <View style={{
-             flex: 1,
             marginTop:50 
         }}>
-        
-        {chartData.map(item=>
-            <Text style={{fontSize:20}}>{item.athlete_name} : {item.points} point(s)</Text>
-        )}
-
+        {loaded && 
+        <VictoryChart width={350}>
+          <VictoryBar 
+            alignment="start" style={{ data: { fill: "orange" } }} 
+            data={chartData} x="athlete_name" y="points" 
+            horizontal={false}
+        />
+          
+        </VictoryChart>
+        }
 
         </View>
     )
