@@ -32,7 +32,7 @@ export default function CreateRoom({ navigation }) {
                 }
             )
             setRoomName('')
-            navigation.navigate('Rooms')
+            navigation.navigate('Kilpailut')
         } else {
             Alert.alert("Muikkari!", "Anna kilpailullesi nimi")
         }
