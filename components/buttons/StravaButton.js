@@ -9,7 +9,7 @@ import { push, ref, set} from "firebase/database"
 import * as AuthSession from 'expo-auth-session';
 import userContext from '../../context/user/userContext'
 import LogoutButton from './LogoutButton'
-
+import tyylit from "../../tyyli/tyyli"
 
 const discovery = {
     authorizationEndpoint: 'https://www.strava.com/oauth/mobile/authorize',
@@ -84,11 +84,11 @@ export default function StravaButton() {
 <>
 
         <TouchableOpacity
-        style={styles.buttonContainer2}
+        style={tyylit.loginbutton}
         onPress={() => {
             promptAsync();
         }}>
-            <Text style={styles.text}>Kirjaudu Stravaan</Text>
+        <Text style={tyylit.buttontext}>Kirjaudu Stravaan</Text>
         </TouchableOpacity>
 
       {/* <LogoutButton></LogoutButton> */}

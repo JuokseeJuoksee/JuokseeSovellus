@@ -1,8 +1,9 @@
-import { Button, Alert } from 'react-native';
+import { Button, Alert, TouchableOpacity, Text } from 'react-native';
 import { app } from '../../database/firebase'
 import { getAuth, signOut } from 'firebase/auth';
 import { useContext } from 'react';
 import userContext from '../../context/user/userContext';
+import tyylit from "../../tyyli/tyyli"
 
 const auth = getAuth(app)
 
@@ -17,9 +18,12 @@ export default function LogoutButton({email, password, login}) {
     }
 
     return (
-        <Button 
+        <TouchableOpacity
+            style={tyylit.logoutbutton}
             title='KIRJAUDU ULOS' 
             onPress={tryLogout}
-        />
+        >
+        <Text style={tyylit.buttontext}>Kirjaudu Ulos </Text>
+        </TouchableOpacity>
     )
 }
