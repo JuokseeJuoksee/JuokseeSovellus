@@ -38,7 +38,7 @@ const tyylit = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 300
+        marginBottom: 200
       },
     logoutbutton: {
         backgroundColor: 'black',
@@ -47,7 +47,7 @@ const tyylit = StyleSheet.create({
         width: 150,
         padding: 20,
         borderRadius:20,
-        left: 10,
+        left: 25,
         marginVertical: - 20
         
     },
@@ -58,13 +58,24 @@ const tyylit = StyleSheet.create({
         width: 150,
         padding: 20,
         borderRadius: 20,
-        left: 225,
+        left: 205,
         bottom: 37 
         
     },
     buttontext: {
         color: 'white',
         fontSize: 14
+    },
+    profileName:{
+        fontSize: 18,
+        marginTop: 10,
+        marginBottom: 10,
+
+    },
+    profileEmail: {
+        fontSize: 15,
+        marginTop: 10,
+        marginBottom: 10
     }
 })
 

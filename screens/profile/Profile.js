@@ -25,21 +25,33 @@ export default function Profile({navigation}) {
     const renderAvatar = () => {
 
         let picture
+        let email
+        let name
 
-        const userRef = ref(db, 'users/' + user.uid);
+        const userRef = ref(db, 'users/' + auth.currentUser.uid);
         onValue(userRef, (snapshot) => {
             const data = snapshot.val();
             picture = data.athlete_picture
-            
+            email = user.email
+            name = data.athlete_name
+            console.log(user)
         })
 
-        return <Avatar rounded source={picture? {uri: picture} : DefAvatar}/>
+        return (
+        <View style={{alignItems: 'center'}}>
+            <Avatar 
+            size= 'large' 
+            rounded 
+            source={picture? {uri: picture} : DefAvatar}
+            containerStyle={{ marginTop: 20}}
+            />
+            <Text style={tyylit.profileEmail}>{email}</Text>
+            <Text style={tyylit.profileName}>{name}</Text>
+        </View>
+        )
+
     }
 
-    // useEffect( () => {
-    //     console.log('moi')
-    //     console.log(usersInfo)
-    // },[usersInfo])
         
     return (
         <View style={{
@@ -48,9 +60,11 @@ export default function Profile({navigation}) {
             <View>
             <Image source={require('../../assets/stravaprofile.png')}/>               
             </View>
+            <View style={{alignItems: 'center'}}>
             {renderAvatar()}
+            </View>
             <View style={tyylit.profile}>
-                <Text style={{fontSize: 25, fontWeight: 'bold'}}>Tervetuloa skabaan</Text>
+                <Text style={{fontSize: 30, fontWeight: 'bold'}}>Tervetuloa skabaan</Text>
             </View>
             <View>
             <LogoutButton />
