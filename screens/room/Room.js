@@ -53,6 +53,7 @@ export default function Room({ navigation, route }) {
             ref(db, `rooms/${route.params.roomId}`), (snapshot) => {
                 const data = snapshot.val()
                 setUsers(data.users)
+                
             }
         )
     }, [])
@@ -75,9 +76,9 @@ export default function Room({ navigation, route }) {
                 const data = snapshot.val()
                 setFullUsers(arr => [...arr, data])
                 getTrainings(data)
-         })
+
+            })
         })
-        
     }, [users])
 
    

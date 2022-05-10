@@ -10,7 +10,7 @@ export default function RoomTopNavigator() {
         <Top.Navigator style={{
             marginTop: 15
         }}>
-            <Top.Screen name="myrooms" component={RoomNavigator} initialParams={{ myRooms: true }} options={{ title: "Omat kilpailuni" }} />
+            {/* <Top.Screen name="myrooms" component={RoomNavigator} initialParams={{ myRooms: true }} options={{ title: "Omat kilpailuni" }} /> */}
             <Top.Screen name="allrooms" component={RoomNavigator} options={{ title: "Kaikki kilpailut" }} />            
         </Top.Navigator>
     )
