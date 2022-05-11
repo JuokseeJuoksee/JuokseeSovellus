@@ -75,6 +75,7 @@ export default function Room({ navigation, route }) {
     }, [])
 
     useEffect(() => {
+        setFullUsers([])
         users.forEach(element => {
             const userRef = ref(db, 'users/' + element)
             onValue(userRef, (snapshot) => {

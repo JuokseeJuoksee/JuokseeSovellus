@@ -64,7 +64,7 @@ export default function Profile({navigation}) {
             {renderAvatar()}
             </View>
             <View style={tyylit.profile}>
-                <Text style={{fontSize: 30, fontWeight: 'bold', marginBottom:10}}>Tervetuloa skabaan</Text>
+                <Text style={{fontSize: 30, fontWeight: 'bold', marginBottom: 40}}>Tervetuloa skabaan</Text>
             </View>
             <View>
             <LogoutButton />
