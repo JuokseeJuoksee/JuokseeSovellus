@@ -100,7 +100,7 @@ export default function Rooms({navigation}) {
                 }}
                 onPress={() => setShowUsersRooms(!showUsersRooms)}
             >
-                <Icon name='accessibility' size={30} color='#01a699'  />
+                <Icon name='accessibility' size={30} color='#F25C05'  />
                 {showUsersRooms ? <Text style={{ fontFamily: 'Dosis' }}>Näytä kaikki</Text> : <Text style={{ fontFamily: 'Dosis' }}>Skabani</Text>}
             </TouchableOpacity>
         </ImageBackground>
