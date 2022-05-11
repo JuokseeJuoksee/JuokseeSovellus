@@ -6,10 +6,10 @@ import { Storage, sessionStorage } from '../../storage/Storage'
 
 export default function Map() {
 
-    
+
     const [coords, setCoords] = React.useState()
     const points = Polyline.decode(sessionStorage.getItem('polyline'))
-    
+
     const getCoords = () => {
         setCoords(points.map((point, index) => {
             return  {
@@ -17,9 +17,9 @@ export default function Map() {
                 longitude : point[1]
             }
         }))
-        
+
     }
-     
+
     React.useState(() => getCoords(),[])
 
     return(

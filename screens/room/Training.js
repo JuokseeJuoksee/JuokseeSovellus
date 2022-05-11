@@ -17,7 +17,6 @@ export default function Training(props) {
     const navigateAndStorePolyline = () => {
         sessionStorage.setItem('polyline', props.item.map.summary_polyline)
         props.navigation.navigate('Map')
-        
     }
 
     const date = new Date(props.item.start_date_local)

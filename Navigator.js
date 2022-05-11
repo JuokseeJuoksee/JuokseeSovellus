@@ -1,27 +1,20 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, ImageBackground } from '@react-navigation/native';
-import { Ionicons} from '@expo/vector-icons'; 
-import { useEffect, useState, useContext } from 'react';
-import { app } from './database/firebase'
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useContext } from 'react';
 import Profile from './screens/profile/Profile';
-import RoomNavigator from './screens/room/RoomNavigator';
 import CreateRoom from './screens/room/CreateRoom';
 import LoginNavigator from './screens/login/LoginNavigator';
 import userContext from './context/user/userContext';
 import WelcomePage from './WelcomePage';
 import RoomTopNavigator from './screens/room/RoomTopNavigator';
-import { Text } from 'react-native';
 import StravaWelcome from './screens/login/StravaWelcome';
-
-const auth = getAuth(app)
+import { Icon } from 'react-native-elements';
 
 const Tab = createBottomTabNavigator();
 
 export default function Navigator() {
 
   const { state, seenWelcome } = useContext(userContext)
-  const [test, setTest] = useState(true)
 
   useEffect(() => {
     setTimeout(() => {
@@ -32,19 +25,22 @@ export default function Navigator() {
   const screenOptions = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
       let iconName;
-  
+      focused ? size = 60 : 40
+      focused ? color = "#F25C05" : "white"
       if (route.name === 'Login') {
         iconName = 'md-home';
       } else if (route.name === 'Kilpailut') {
-        iconName = 'md-settings';
+        iconName = 'emoji-events';
       } else if (route.name === 'Luo') {
-        iconName = 'md-settings';
+        iconName = 'construction';
       } else if (route.name === 'Profiili') {
-        iconName = 'md-settings';
+        iconName = 'person';
       }
   
-      return <Ionicons name={iconName} size={size} color={color} />;
-    }
+      return <Icon name={iconName} size={size} color={color} />;
+    },
+    tabBarStyle: { opacity: 0.7, backgroundColor: "black", height: 70 },
+    tabBarLabelStyle: { fontFamily: 'Dosis', fontSize: 15, color: "white" }
   });
 
  
@@ -55,18 +51,18 @@ export default function Navigator() {
   } 
 
 
-  if (state.user.user && state.strava) {
+  if (state.user && state.strava === true) {
     return (
       <NavigationContainer>      
           <Tab.Navigator screenOptions={screenOptions}>
-              <Tab.Screen name="Profiili" component={Profile} options={{ headerShown: false}}  />
-              <Tab.Screen name="Kilpailut" component={RoomTopNavigator} options={{ headerShown: false}} />
-              <Tab.Screen name="Luo" component={CreateRoom} options={{ headerShown: false }} />
+              <Tab.Screen name="Profiili" component={Profile} options={{ headerShown: false, tabBarHideOnKeyboard: true }}  />
+              <Tab.Screen name="Kilpailut" component={RoomTopNavigator} options={{ headerShown: false, tabBarHideOnKeyboard: true }} />
+              <Tab.Screen name="Luo" component={CreateRoom} options={{ headerShown: false,tabBarHideOnKeyboard: true }} />
           </Tab.Navigator>
       </NavigationContainer>
     )
   } 
-  else if(state.user.user && !state.strava){
+  else if(state.user && state.strava !== true){
     return(
       <NavigationContainer>      
             <Tab.Navigator screenOptions={screenOptions}>

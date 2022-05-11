@@ -9,6 +9,8 @@ import { push, ref, set} from "firebase/database"
 import * as AuthSession from 'expo-auth-session';
 import userContext from '../../context/user/userContext'
 import LogoutButton from './LogoutButton'
+import tyylit from "../../tyyli/tyyli"
+import {CLIENT_SECRET} from "@env"
 
 
 const discovery = {
@@ -58,14 +60,11 @@ export default function StravaButton() {
     }, [response]);
 
     const getAthleteTokens = (code) => {
-        axios.post(`https://www.strava.com/oauth/token?client_id=76862&client_secret=67401766aa8757e4f2c742595091a8d3014137c6&code=${code}&grant_type=authorization_code`)
+        axios.post(`https://www.strava.com/oauth/token?client_id=76862&client_secret=${CLIENT_SECRET}&code=${code}&grant_type=authorization_code`)
         .then(res => {
             console.log(res.data)
-            putTokensToUser(res.data)
-            strava()
-          }
-            )
-           
+            putTokensToUser(res.data)})
+            //  strava(true)
         .catch(err => console.error(err))
     }
 
@@ -89,11 +88,11 @@ export default function StravaButton() {
 <>
 
         <TouchableOpacity
-        style={styles.buttonContainer2}
+        style={tyylit.loginbutton}
         onPress={() => {
             promptAsync();
         }}>
-            <Text style={styles.text}>Kirjaudu Stravaan</Text>
+        <Text style={tyylit.buttontext}>Kirjaudu Stravaan</Text>
         </TouchableOpacity>
 
       {/* <LogoutButton></LogoutButton> */}
@@ -103,12 +102,8 @@ export default function StravaButton() {
 }const styles = StyleSheet.create({
     
     buttonContainer2: {
-        flex: 1,
-        bottom:0,
-        position:"absolute",
-        backgroundColor: 'transparent',
-        flexDirection: 'row',
-        marginBottom: "30%",
+      margin:'auto',
+      alignItems:'center'
       },
     button: {
       flex: 1,
@@ -117,6 +112,6 @@ export default function StravaButton() {
     },
     text: {
       fontSize: 20,
-      color: 'white',
+      
     },
   });
