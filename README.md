@@ -2,6 +2,15 @@
 
 A Strava mobile application for IOS and Android created for Haaga-Helia's Software project 2. 
 
+Try the application out here:
+
+https://expo.dev/@jaakkoa/urheilukelloappi
+
+## Descritpion
+
+We wanted to create an application in which users can host running competitions against each other. The users have to login using Strava's authentication to set up their profiles. Once the user has logged in using Strava, they can start their own competition or join an existing one. After that the process is simple. You just have to go out and start a run on your Strava application to earn points in the competition!
+
+This application uses Strava's API to get information about athletes. We store this information in our secure firebase database.
 
 ## Install 
 
@@ -16,13 +25,13 @@ To get started with the application make a clone of the repository
  
      `cd JuokseeSovellus  `
 
-3. Install NPM packages
+3. Install packages
 
      `expo install `
       
       Or
 
-     ` npm install (if you don't have yarn installed) `
+     ` yarn install  `
      
      
 4. Run the project
