@@ -35,4 +35,4 @@ To use the application you will need either an Android or IOS emulator or a phys
 
 Client secret keys are hidden with @env for now and you will need our .env file. Business enquiries for the file should be sent to miika.m.juhala@gmail.com 
 
-For Expo Go docs go to https://expo.dev/client
+The application can be opened from https://expo.dev/@jaakkoa/urheilukelloappi
