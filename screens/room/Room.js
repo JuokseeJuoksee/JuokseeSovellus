@@ -8,6 +8,8 @@ import { getAuth} from "firebase/auth"
 import { app } from '../../database/firebase'
 import Competition from "./Competition";
 import axios from "axios";
+import { useContext } from "react";
+import userContext from "../../context/user/userContext";
 
 const auth = getAuth(app)
 
@@ -30,6 +32,8 @@ const styles = StyleSheet.create({
 
 export default function Room({ navigation, route }) {
 
+    const { state } = useContext(userContext)
+
     const [users, setUsers] = useState([])
     const [allUsers, setAllUsers] = useState([])
     const [fullUsers, setFullUsers] = useState([])
@@ -42,21 +46,22 @@ export default function Room({ navigation, route }) {
         onValue(
             ref(db, `rooms/${route.params.roomId}`), (snapshot) => {
                 setRoom(snapshot.val())
+                setUsers(snapshot.val().users)
             }
         )
     }, [])
 
    
 
-    useEffect(() => {
-        onValue(
-            ref(db, `rooms/${route.params.roomId}`), (snapshot) => {
-                const data = snapshot.val()
-                setUsers(data.users)
+    // useEffect(() => {
+    //     onValue(
+    //         ref(db, `rooms/${route.params.roomId}`), (snapshot) => {
+    //             const data = snapshot.val()
+    //             setUsers(data.users)
                 
-            }
-        )
-    }, [])
+    //         }
+    //     )
+    // }, [])
 
     useEffect(() => {
         onValue(
@@ -96,12 +101,16 @@ export default function Room({ navigation, route }) {
     }
 
     const isUserInRoom = () => {
-        let boolean = false
-        users.forEach(user => {
-            if(user == auth.currentUser.uid) boolean = true
-        })
+        if (users.includes(state.user.userId)) {
+            return true
+        } 
+        return false
+        // let boolean = false
+        // users.forEach(user => {
+        //     if(user == auth.currentUser.uid) boolean = true
+        // })
         
-        return boolean
+        // return boolean
     }
 
     const renderUsers = (item) => {
