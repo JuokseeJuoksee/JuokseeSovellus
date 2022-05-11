@@ -121,7 +121,7 @@ export default function Room({ navigation, route }) {
         //             <Text style={styles.text}>{item.item.athlete_name}</Text>
         //             <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar}  />
         //         </TouchableOpacity>
-            return <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar}  />
+            return <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar} onPress={() => navigation.navigate("Trainings",item.item)} />
                 
     }
 
@@ -186,6 +186,11 @@ export default function Room({ navigation, route }) {
                 }}
                 onPress={() => navigation.goBack()}
             />
+            <View style={{
+                
+            }}>
+
+            </View>
 
             <View style={{
                 flex: 1
