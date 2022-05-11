@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import userContext from '../../context/user/userContext';
 import {DateInput} from 'react-native-date-input';
 import dayjs from 'dayjs';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const auth = getAuth(app)
 const user = auth.currentUser;
@@ -60,6 +61,7 @@ export default function CreateRoom({ navigation }) {
                     alignItems: 'center'               
                 }}>
                     <Text style={{ fontSize: 17, margin: 20 }}>Luo uusi kilpailu!</Text> 
+                    <DateTimePicker value={new Date()}/>
                     <TextInput 
                         placeholder='Huoneen nimi'
                         style={{
@@ -68,7 +70,6 @@ export default function CreateRoom({ navigation }) {
                         onChangeText={nimi => setRoomName(nimi)}
                         value={roomName}
                     />  
-
                     <Button 
                         title='Luo kilpailu'
                         onPress={saveRoom}
