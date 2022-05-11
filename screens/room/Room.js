@@ -10,6 +10,7 @@ import Competition from "./Competition";
 import axios from "axios";
 import { useContext } from "react";
 import userContext from "../../context/user/userContext";
+import {CLIENT_SECRET} from "@env"
 
 const auth = getAuth(app)
 
@@ -149,7 +150,7 @@ export default function Room({ navigation, route }) {
     
         // console.log(user.refresh_token)
     
-        axios.post(`https://www.strava.com/api/v3/oauth/token?client_id=76862&client_secret=67401766aa8757e4f2c742595091a8d3014137c6&grant_type=refresh_token&refresh_token=${user.refresh_token}`)
+        axios.post(`https://www.strava.com/api/v3/oauth/token?client_id=76862&client_secret=${CLIENT_SECRET}&grant_type=refresh_token&refresh_token=${user.refresh_token}`)
         .then(res => {
             putTokensToUser(res.data, user)})
         .catch(err => console.error(err))

@@ -7,6 +7,7 @@ import { getAuth} from "firebase/auth"
 import { app } from '../../database/firebase'
 import { push, ref, set,update, onValue } from "firebase/database"
 import { db } from '../../database/firebase'
+import {CLIENT_SECRET} from "@env"
 
 const auth = getAuth(app)
 export default function Trainings({ route, navigation }) {
@@ -46,7 +47,7 @@ export default function Trainings({ route, navigation }) {
 
     // console.log(user.refresh_token)
 
-    axios.post(`https://www.strava.com/api/v3/oauth/token?client_id=76862&client_secret=67401766aa8757e4f2c742595091a8d3014137c6&grant_type=refresh_token&refresh_token=${user.refresh_token}`)
+    axios.post(`https://www.strava.com/api/v3/oauth/token?client_id=76862&client_secret=${CLIENT_SECRET}&grant_type=refresh_token&refresh_token=${user.refresh_token}`)
     .then(res => {
         putTokensToUser(res.data, user)})
     .catch(err => console.error(err))
