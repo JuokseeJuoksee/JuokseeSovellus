@@ -2,7 +2,8 @@ import UserContext from "./userContext";
 import { useReducer } from "react";
 import { LOGIN, LOGOUT, REGISTER,SEEN_WELCOME, STRAVA } from "./userActions";
 import userReducer from "./userReducer";
-
+import { onValue, ref, set } from "firebase/database";
+import { db } from "../../database/firebase";
 
 export default function UserState(props) {
     
@@ -17,10 +18,21 @@ export default function UserState(props) {
     const [state, dispatch] = useReducer(userReducer, initialState)
 
     const login = (user) => {
-        dispatch({
-            type: LOGIN,
-            payload: user
-        })
+        // dispatch({
+        //     type: LOGIN,
+        //     payload: user
+        // })
+        onValue(
+            ref(db, `users/${user.uid}`), (snapshot) => {
+                const data = snapshot.val()
+                console.log(data)
+                dispatch({
+                    type: LOGIN,
+                    payload: data
+                })       
+                data.athlete_id ? strava(true) : strava(null)
+            }
+        )
     }
 
     const strava = (boolean) => {
@@ -38,11 +50,18 @@ export default function UserState(props) {
     }
 
     const register = (user) => {
-        console.log(user.user)
-        dispatch({
-            type: REGISTER,
-            payload: user
-        })
+        // console.log(user.user)
+        // dispatch({
+        //     type: REGISTER,
+        //     payload: user
+        // })
+        set(
+            ref(db, `users/${user.user.uid}`), {
+                userId: user.user.uid
+            }
+        )
+        .finally(() => login(user.user))
+        .catch(err => console.log(err))
     }
 
     const seenWelcome = () => {

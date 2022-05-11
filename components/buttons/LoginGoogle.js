@@ -35,9 +35,7 @@ export default function LoginGoogle({navigation}) {
           // Sign in with credential from the Google user.
           signInWithCredential(auth, credential).then(user => {
             if (user) {
-                login({
-                    user: user
-                })
+              login(user.user)
             }
         })
         //   saveUser(user)

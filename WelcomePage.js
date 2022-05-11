@@ -13,28 +13,31 @@ export default function WelcomePage() {
     const { login, strava, logout} = useContext(userContext)
 
     useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            if(!user.uid){
-                logout()
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                login(user)
             }
-            else if(user) {
-                const uid = user.uid
-                onValue(
-                    ref(db, `users/${uid}`), (snapshot) => {
-                        const data  = snapshot.val()
-                        login(data)
-                        console.log(data)
-                        if(data){
-                            if (data.athlete_id) {
-                                strava(true)
-                            }else{
-                                strava(null) 
-                            }
+            // if(!user.uid){
+            //     logout()
+            // }
+            // else if(user) {
+            //     const uid = user.uid
+            //     onValue(
+            //         ref(db, `users/${uid}`), (snapshot) => {
+            //             const data  = snapshot.val()
+            //             login(data)
+            //             console.log(data)
+            //             if(data){
+            //                 if (data.athlete_id) {
+            //                     strava(true)
+            //                 }else{
+            //                     strava(null) 
+            //                 }
                             
-                        }
-                    }
-                )
-            }
+            //             }
+            //         }
+            //     )
+            // }
         })
     },[])
 

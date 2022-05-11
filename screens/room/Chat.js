@@ -152,6 +152,9 @@ export default function Chat({ route }) {
                     flex: 5
                 }}>
                     <FlatList 
+                        style={{
+                            marginTop: 10
+                        }}
                         data={messages}
                         keyExtractor={(item, index) => index}
                         renderItem={({item}) => item.sender === state.user.userId ? YouMessage(item) : OtherMessage(item)}

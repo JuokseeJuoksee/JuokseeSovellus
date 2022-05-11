@@ -1,13 +1,13 @@
 import { View, Text, ImageBackground, TextInput, Button, Alert } from 'react-native';
 import { db } from '../../database/firebase'
 import Image from '../../assets/background.jpg'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { push, ref } from 'firebase/database';
 import { app } from '../../database/firebase'
 import { getAuth } from 'firebase/auth';
 import { useContext } from 'react';
 import userContext from '../../context/user/userContext';
-import {DateInput} from 'react-native-date-input';
+import DatePicker from 'react-native-modern-datepicker'
 import dayjs from 'dayjs';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -18,7 +18,7 @@ export default function CreateRoom({ navigation }) {
 
     const [roomName, setRoomName] = useState('')
     const { state } = useContext(userContext)
-    const [date, setDate] = useState('');
+    const [date, setDate] = useState(null)
    
     const saveRoom = () => {
         if (roomName) {
@@ -29,15 +29,18 @@ export default function CreateRoom({ navigation }) {
                     hostPictureUrl: state.user.athlete_picture,
                     messages: [{send: new Date().getTime(), message: "Ei vielä viestejä, ole ensimmäinen"}],
                     created: new Date().getTime(),
-                    users: [state.user.userId]
+                    users: [state.user.userId],
+                    endsIn: date
                 }
             )
             setRoomName('')
-            navigation.navigate('Rooms')
+            navigation.navigate('Kilpailut')
         } else {
             Alert.alert("Muikkari!", "Anna kilpailullesi nimi")
         }
     }
+
+    React.useEffect(() => console.log(`date is ${date}`),[date])
 
     return (
         <View style={{
@@ -53,7 +56,7 @@ export default function CreateRoom({ navigation }) {
                 source={Image}
             >         
                 <View style={{
-                    height: '80%',
+                    height: '90%',
                     width: '90%',
                     backgroundColor: 'white',
                     opacity: 0.7,
@@ -65,7 +68,7 @@ export default function CreateRoom({ navigation }) {
                     <TextInput 
                         placeholder='Huoneen nimi'
                         style={{
-                            height: 300
+                            padding:10
                         }}
                         onChangeText={nimi => setRoomName(nimi)}
                         value={roomName}

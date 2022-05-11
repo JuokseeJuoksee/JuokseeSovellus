@@ -16,14 +16,7 @@ export default function LoginButton({email, password}) {
         signInWithEmailAndPassword(auth, email, password)
         .then(user => {
             if (user) {
-                const uid = user.user.uid
-                onValue(
-                    ref(db, `users/${uid}`), (snapshot) => {
-                        // DATA = KÄYTTÄJÄ
-                        const data = snapshot.val()
-                        login(data)
-                    }
-                )
+                login(user.user)
             }
         })
         .catch(err => console.log(err))

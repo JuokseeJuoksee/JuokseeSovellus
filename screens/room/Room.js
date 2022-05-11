@@ -8,7 +8,8 @@ import { getAuth} from "firebase/auth"
 import { app } from '../../database/firebase'
 import Competition from "./Competition";
 import axios from "axios";
-import { async } from "@firebase/util";
+import { useContext } from "react";
+import userContext from "../../context/user/userContext";
 
 const auth = getAuth(app)
 
@@ -31,24 +32,36 @@ const styles = StyleSheet.create({
 
 export default function Room({ navigation, route }) {
 
+    const { state } = useContext(userContext)
+
     const [users, setUsers] = useState([])
     const [allUsers, setAllUsers] = useState([])
     const [fullUsers, setFullUsers] = useState([])
 
     const [trainings, setTrainings] = useState([])
 
-
-
-   
+    const [room, setRoom] = useState()
 
     useEffect(() => {
         onValue(
             ref(db, `rooms/${route.params.roomId}`), (snapshot) => {
-                const data = snapshot.val()
-                setUsers(data.users)
+                setRoom(snapshot.val())
+                setUsers(snapshot.val().users)
             }
         )
     }, [])
+
+   
+
+    // useEffect(() => {
+    //     onValue(
+    //         ref(db, `rooms/${route.params.roomId}`), (snapshot) => {
+    //             const data = snapshot.val()
+    //             setUsers(data.users)
+                
+    //         }
+    //     )
+    // }, [])
 
     useEffect(() => {
         onValue(
@@ -68,9 +81,9 @@ export default function Room({ navigation, route }) {
                 const data = snapshot.val()
                 setFullUsers(arr => [...arr, data])
                 getTrainings(data)
-         })
+
+            })
         })
-        
     }, [users])
 
    
@@ -88,22 +101,27 @@ export default function Room({ navigation, route }) {
     }
 
     const isUserInRoom = () => {
-        let boolean = false
-        users.forEach(user => {
-            if(user == auth.currentUser.uid) boolean = true
-        })
+        if (users.includes(state.user.userId)) {
+            return true
+        } 
+        return false
+        // let boolean = false
+        // users.forEach(user => {
+        //     if(user == auth.currentUser.uid) boolean = true
+        // })
         
-        return boolean
+        // return boolean
     }
 
     const renderUsers = (item) => {
-        return <TouchableOpacity style={styles.row}
-                    title={item.item.athlete_name}
-                    onPress={() => navigation.navigate("Trainings",item.item)}
-                >
-                    <Text style={styles.text}>{item.item.athlete_name}</Text>
-                    <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar}  />
-                </TouchableOpacity>
+        // return <TouchableOpacity style={styles.row}
+        //             title={item.item.athlete_name}
+        //             onPress={() => navigation.navigate("Trainings",item.item)}
+        //         >
+        //             <Text style={styles.text}>{item.item.athlete_name}</Text>
+        //             <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar}  />
+        //         </TouchableOpacity>
+            return <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar}  />
                 
     }
 
@@ -168,34 +186,29 @@ export default function Room({ navigation, route }) {
                 }}
                 onPress={() => navigation.goBack()}
             />
-            <View style={{
-                
-            }}>
-
-            </View>
 
             <View style={{
                 flex: 1
             }}>
                 <View style={{
-                    flex: 1,
+                    flex: 3.5,
                     alignContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
                 }}>
                     
-                    <Competition usersAndTrainings={trainings} ></Competition>
+                    <Competition usersAndTrainings={trainings} roomId={route.params.roomId}></Competition>
                 </View>
 
                 <View style={{
                     flex: 1,
                     backgroundColor: "#F25C05",
-                    alignItems: "center"
+                    alignItems: "center",
                 }}>
-                    {isUserInRoom() ? <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Mukana Skabassa</Text> : <View>
-                        <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Et ole huoneessa</Text>
+                    {isUserInRoom() ? <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Mukana Skabassa</Text> : <View style={{ flexDirection:"row" }}>
+                        <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30, marginRight: 10 }}>Et ole huoneessa</Text>
                         <Button
-                        title="liity Skabaan"
-                        onPress={userToRoom}
+                            title="Liity Skabaan"
+                            onPress={userToRoom}
                         ></Button>
                         </View>}
 
@@ -204,6 +217,7 @@ export default function Room({ navigation, route }) {
                         data={fullUsers}
                         renderItem={renderUsers}
                         keyExtractor={user=> user.userId}
+                        horizontal={true}
                     ></FlatList>
                 </View>
 
