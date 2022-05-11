@@ -91,7 +91,7 @@ export default function Rooms({navigation}) {
                     justifyContent: 'center',
                     width: 90,
                     position: 'absolute',
-                    bottom: 'auto',
+                    bottom: 10,
                     right: 'auto',
                     height: 90,
                     backgroundColor: '#fff',
