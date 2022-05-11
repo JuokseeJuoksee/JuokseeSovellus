@@ -114,13 +114,14 @@ export default function Room({ navigation, route }) {
     }
 
     const renderUsers = (item) => {
-        return <TouchableOpacity style={styles.row}
-                    title={item.item.athlete_name}
-                    onPress={() => navigation.navigate("Trainings",item.item)}
-                >
-                    <Text style={styles.text}>{item.item.athlete_name}</Text>
-                    <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar}  />
-                </TouchableOpacity>
+        // return <TouchableOpacity style={styles.row}
+        //             title={item.item.athlete_name}
+        //             onPress={() => navigation.navigate("Trainings",item.item)}
+        //         >
+        //             <Text style={styles.text}>{item.item.athlete_name}</Text>
+        //             <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar}  />
+        //         </TouchableOpacity>
+            return <Avatar rounded source={item.item.athlete_picture ? { uri: item.item.athlete_picture } : DefAvatar}  />
                 
     }
 
@@ -185,17 +186,12 @@ export default function Room({ navigation, route }) {
                 }}
                 onPress={() => navigation.goBack()}
             />
-            <View style={{
-                
-            }}>
-
-            </View>
 
             <View style={{
                 flex: 1
             }}>
                 <View style={{
-                    flex: 2,
+                    flex: 3.5,
                     alignContent: "center",
                     alignItems: "center",
                 }}>
@@ -208,11 +204,11 @@ export default function Room({ navigation, route }) {
                     backgroundColor: "#F25C05",
                     alignItems: "center",
                 }}>
-                    {isUserInRoom() ? <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Mukana Skabassa</Text> : <View>
-                        <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Et ole huoneessa</Text>
+                    {isUserInRoom() ? <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Mukana Skabassa</Text> : <View style={{ flexDirection:"row" }}>
+                        <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30, marginRight: 10 }}>Et ole huoneessa</Text>
                         <Button
-                        title="liity Skabaan"
-                        onPress={userToRoom}
+                            title="Liity Skabaan"
+                            onPress={userToRoom}
                         ></Button>
                         </View>}
 
@@ -221,6 +217,7 @@ export default function Room({ navigation, route }) {
                         data={fullUsers}
                         renderItem={renderUsers}
                         keyExtractor={user=> user.userId}
+                        horizontal={true}
                     ></FlatList>
                 </View>
 

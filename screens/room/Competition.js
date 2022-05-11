@@ -1,7 +1,7 @@
 import { runnerElo, runningIndex, runningIndexWithSpeed, teamVersusElo } from "elosystems";
 import { onValue, ref, update } from "firebase/database";
 import { useEffect, React, useState } from "react";
-import { View, Button, ImageBackground, Text } from "react-native";
+import { View, Button, ImageBackground, Text, ScrollView } from "react-native";
 import { getAuth} from "firebase/auth"
 import { app, db } from '../../database/firebase'
 import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
@@ -117,8 +117,8 @@ const onCompetitionEnd = ()=>{
     
     return (
 
-        <View style={{
-            marginTop:50 
+        <ScrollView style={{
+            // marginTop:50 
         }}>
         {ended && 
         <>
@@ -140,7 +140,7 @@ const onCompetitionEnd = ()=>{
         }
       
 
-        </View>
+        </ScrollView>
     )
 }
 
