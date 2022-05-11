@@ -38,7 +38,7 @@ const tyylit = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 200
+        marginBottom: 150
       },
     logoutbutton: {
         backgroundColor: 'black',
@@ -55,10 +55,10 @@ const tyylit = StyleSheet.create({
         backgroundColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 150,
+        width: 170,
         padding: 20,
         borderRadius: 20,
-        left: 205,
+        left: 190,
         bottom: 37 
         
     },
