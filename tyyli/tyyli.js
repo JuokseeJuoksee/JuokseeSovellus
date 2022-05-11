@@ -55,10 +55,10 @@ const tyylit = StyleSheet.create({
         backgroundColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 150,
+        width: 170,
         padding: 20,
         borderRadius: 20,
-        left: 205,
+        left: 190,
         bottom: 37 
         
     },
