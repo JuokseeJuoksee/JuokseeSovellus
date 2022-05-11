@@ -81,6 +81,7 @@ export default function Rooms({navigation}) {
             keyExtractor={(item, index) => index}
             renderItem={({item}) => RenderedItem(item) }
             listSeparator={ListSeparator}
+            showsVerticalScrollIndicator={false}
         />
             <TouchableOpacity
                 style={{
