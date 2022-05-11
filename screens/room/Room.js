@@ -186,18 +186,18 @@ export default function Room({ navigation, route }) {
                 flex: 1
             }}>
                 <View style={{
-                    flex: 1,
+                    flex: 2,
                     alignContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
                 }}>
                     
                     <Competition usersAndTrainings={trainings} roomId={route.params.roomId}></Competition>
                 </View>
 
                 <View style={{
-                    flex: 0.5,
+                    flex: 1,
                     backgroundColor: "#F25C05",
-                    alignItems: "center"
+                    alignItems: "center",
                 }}>
                     {isUserInRoom() ? <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Mukana Skabassa</Text> : <View>
                         <Text style={{ fontFamily: 'Dosis', color: "white", fontSize: 30 }}>Et ole huoneessa</Text>
