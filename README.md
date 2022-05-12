@@ -17,6 +17,8 @@ This application uses Strava's API to get information about athletes. We store t
 ![SkabaRegisterPage](https://user-images.githubusercontent.com/89595592/168071573-91721135-f2a3-4f5f-ae86-9b0a07a4ef97.jpg) 
 ![SkabaProfile](https://user-images.githubusercontent.com/89595592/168071965-2efc1506-dc66-428d-92d2-d7f0a113136b.jpg)
 ![SkabaHuoneet](https://user-images.githubusercontent.com/89595592/168071821-da487d30-9c21-4000-bb57-01bfb7f8c3da.jpg)
+
+
 ![SkabaHuone](https://user-images.githubusercontent.com/89595592/168071852-1a1daa94-4ccf-46cc-81e4-a7156ce53c60.jpg)
 ![SkabaChat](https://user-images.githubusercontent.com/89595592/168072005-83cfcf41-d0d3-48b1-aed2-c7fdcc31093a.jpg)
 ![SkabaLuoKilpailu](https://user-images.githubusercontent.com/89595592/168072079-7cd8d290-8880-4674-aa75-6407860d3547.jpg)
